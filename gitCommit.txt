@@ -1,16 +1,23 @@
 What is git?
 How to commit locally?
-how to commit globally?
+how to commit globally (remote)?  
 Diff. b/w Git and GitHub
 Version control
 Source control
+git checkout 1f12  //1f12(First 4 letter of Hash code)
 git init
 git status
 git add fileName.txt
 git commit -m 'heading'
 git log
-git checkout 1f12   1f12(First 4 letter of Hash code)
+git checkout 1f12   //1f12(First 4 letter of Hash code)
 
 git remote -v
 git remote add swabhav url
 git push swabhav master 
+
+
+cloud provider:
+gitlab
+gitbucket
+github
