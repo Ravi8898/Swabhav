@@ -6,10 +6,9 @@ public class ArgumentTest {
 		
 		if(args.length>0)
 			{
-			for(int i=0:args.length)
+			for(String i:args)
 			{
-				System.out.println("Hello "+args[i]);
-			
+				System.out.println("Hello "+i);			
 			}
 			}
 		else
