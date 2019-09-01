@@ -13,7 +13,6 @@ public class PassByValueTest {
 		for(int m:mark) {
 		System.out.println(m);
 		}
-
 	}
 	public static void changeMarksToZero(int markPassed) {
 		
@@ -26,5 +25,4 @@ public class PassByValueTest {
 			marksPassed[i]=0;
 		}
 	}
-
 }
