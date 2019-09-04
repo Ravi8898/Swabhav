@@ -7,8 +7,7 @@ public class RectangleTest {
 		Rectangle rect1=new Rectangle(30, 50);
 		Rectangle rect2=new Rectangle(10, 40, ColorCategory.BLUE);
 		printInfo(rect1);
-		printInfo(rect2);
-		
+		printInfo(rect2);	
 	}
 	
 	public static void printInfo(Rectangle r) {
@@ -19,5 +18,4 @@ public class RectangleTest {
 		System.out.println("Color of Rectangle is: "+r.getColor());
 		System.out.println();
 	}
-
 }
