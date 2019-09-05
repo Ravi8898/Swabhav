@@ -4,14 +4,16 @@ public class Rectangle {
 
 	private int width;
 	private int height;
-	private ColorCategory color = ColorCategory.RED;
+	private ColorCategory color;
 
 	public Rectangle(int width, int height) {
-		this.width = width;
-		this.height = height;
+
+		this(width, height, ColorCategory.RED);
 	}
 
 	public Rectangle(int width, int height, ColorCategory color) {
+
+		
 		this.width = width;
 		this.height = height;
 		this.color = color;

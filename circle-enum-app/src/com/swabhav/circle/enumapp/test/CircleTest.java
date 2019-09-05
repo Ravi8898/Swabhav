@@ -1,4 +1,8 @@
-package com.swabhav.circle.enumapp;
+package com.swabhav.circle.enumapp.test;
+
+import com.swabhav.circle.enumapp.BorderCategory;
+import com.swabhav.circle.enumapp.Circle;
+import com.swabhav.circle.enumapp.ColorCategory;
 
 public class CircleTest {
 	
