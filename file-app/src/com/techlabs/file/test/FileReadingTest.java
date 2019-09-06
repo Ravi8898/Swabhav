@@ -6,7 +6,7 @@ public class FileReadingTest {
 
 	public static void main(String[] args) throws Exception {
 
-		FileReader file=new FileReader("D:\\Swabhav_Repository\\test.txt");
+		FileReader file=new FileReader("Resources\\test.txt");
 		
 		int i;
 		while((i=file.read())!=-1) {

@@ -1,5 +1,7 @@
 package com.techlabs.player.test;
 
+import java.io.File;
+
 import com.techlabs.player.Player;
 
 public class PlayerTest {
@@ -10,13 +12,17 @@ public class PlayerTest {
 		Player p1 = new Player(101, "Sachin", 50);
 		Player elder = p1.whoIsElder(p2);
 		printInfo(elder);
+		printInfo(p2);
+		printInfo(p1);
+		
 	}
 
 	public static void printInfo(Player p) {
 
 		System.out.print(p.getName() + " ");
 		System.out.print(p.getId() + " ");
-		System.out.println(p.getAge());
+		System.out.print(p.getAge()+" ");
+		System.out.println(p.hashCode());
 	}
 
 }

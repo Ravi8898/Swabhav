@@ -6,7 +6,7 @@ public class FileWritingTest {
 
 	public static void main(String[] args) throws Exception {
 		
-		FileWriter file=new FileWriter("D:\\Swabhav_Repository\\test.txt", true);
+		FileWriter file=new FileWriter("Resources\\test.txt", true);
 		
 		file.write("hello...!!!");
 		file.close();
