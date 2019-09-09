@@ -1,6 +1,8 @@
 package com.techlabs.human;
 
-public class Human {
+import java.io.Serializable;
+
+public class Human implements Serializable{
 
 	private String name;
 	private int age;
@@ -41,7 +43,7 @@ public class Human {
 	public void workOut() {
 
 		this.weight = (weight - (weight * 0.002f));
-		this.height = (height + (height * 0.005f));
+//		this.height = (height + (height * 0.005f));
 
 	}
 

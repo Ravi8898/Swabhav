@@ -8,7 +8,8 @@ public class ArgumentTest {
 			{
 			for(String i:args)
 			{
-				System.out.println("Hello "+i);			
+				System.out.println("Hello "+i);	
+				
 			}
 			}
 		else
