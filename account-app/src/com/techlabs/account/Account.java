@@ -25,6 +25,7 @@ public class Account {
 	}
 	
 	public void withdraw(double amount) {
+		
 		double updatedBalance=this.balance-amount;
 		if(updatedBalance>=minAmount && amount>=minAmount) {
 			this.balance=updatedBalance;
@@ -45,4 +46,5 @@ public class Account {
 	public double getBalance() {
 		return balance;
 	}
+	
 }
