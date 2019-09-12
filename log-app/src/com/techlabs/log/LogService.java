@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class LogService {
 
-	private static final String info = "0";
-	private static final String warning = "1";
-	private static final String error = "2";
+	private static final String INFO = "0";
+	private static final String WARNING = "1";
+	private static final String ERROR = "2";
 	private static String type;
 	private static String parameter;
 
@@ -50,17 +50,17 @@ public class LogService {
 		}
 	
 	public static String getInfo() {
-		return info;
+		return INFO;
 	}
 
 
 	public static String getWarning() {
-		return warning;
+		return WARNING;
 	}
 
 
 	public static String getError() {
-		return error;
+		return ERROR;
 	}
 
 
@@ -78,13 +78,13 @@ public class LogService {
 
 		switch (parameter) {
 
-		case info:
+		case INFO:
 			return "INFO";
 
-		case warning:
+		case WARNING:
 			return "WARNING";
 
-		case error:
+		case ERROR:
 			return "ERROR";
 			
 		default:

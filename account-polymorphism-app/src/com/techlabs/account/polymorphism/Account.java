@@ -17,6 +17,12 @@ public abstract class Account {
 		this.balance = this.balance + amount;
 		System.out.println("Your amount is deposited into yout account");
 	}
+	
+	@Override
+	public String toString() {
+		return "Account No: "+accNo+"\nHolder Name: "+name+"\nRemaining balance: "+balance+"\n";
+		
+	}
 
 	public abstract void withdraw(double amount);
 

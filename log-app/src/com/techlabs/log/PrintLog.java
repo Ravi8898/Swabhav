@@ -5,8 +5,7 @@ public class PrintLog {
 		
 		System.out.println(LogService.getType());
 		System.out.println(LogService.getParameter());
-//		for(String listIndex:)
-//			System.out.println(listIndex);
+
 	}
 
 }

@@ -2,7 +2,7 @@ package com.techlabs.icrud.dbdriven;
 
 import com.techlabs.icrud.ICrudable;
 
-public class OrderDB implements ICrudable{
+public class OrderDB implements ICrudable {
 
 	@Override
 	public void create() {
@@ -23,5 +23,4 @@ public class OrderDB implements ICrudable{
 	public void delete() {
 		System.out.println("order daleted");
 	}
-
 }
