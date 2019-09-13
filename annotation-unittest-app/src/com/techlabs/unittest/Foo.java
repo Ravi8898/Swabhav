@@ -12,14 +12,16 @@ public class Foo {
 		return true;
 
 	}
+
 	@UnitTest
 	public boolean m3() {
 		return true;
 
 	}
+
 	@UnitTest
 	public boolean m4() {
-		return true;
+		return false;
 
 	}
 }
