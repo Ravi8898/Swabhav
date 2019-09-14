@@ -1,27 +1,27 @@
 package com.techlabs.college;
 
 public class Person {
-	
-	private static int id;
+
+	private int id;
 	private static int nextID;
 	protected String address;
 	protected String dob;
-	
+
 	static {
-		
-		nextID=1000;
-	}
-	
-	public Person(String address, String dob) {
-		id=nextID;
-		nextID++;
-		this.address=address;
-		this.dob=dob;
-		
-		
+
+		nextID = 1000;
 	}
 
-	public static int getId() {
+	public Person(String address, String dob) {
+		
+		id = ++nextID;
+		
+		this.address = address;
+		this.dob = dob;
+
+	}
+
+	public int getId() {
 		return id;
 	}
 

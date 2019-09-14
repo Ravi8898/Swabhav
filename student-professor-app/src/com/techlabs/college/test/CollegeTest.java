@@ -1,31 +1,32 @@
 package com.techlabs.college.test;
 
-import java.util.ArrayList;
-
 import com.techlabs.college.BranchCategory;
 import com.techlabs.college.College;
-import com.techlabs.college.Person;
 import com.techlabs.college.Professor;
 import com.techlabs.college.Student;
 
 public class CollegeTest {
-	
-	
+
 	public static void main(String[] args) {
-		
-		list.add(new Professor("VIRAR_EAST", "10/02/1996", 8, 30));
-		list.add(new Student("Bhayander", "30/02/1995", BranchCategory.EXTC));
-		list.add(new Student("Dahisar", "01/01/1998", BranchCategory.COMPS));
-		College vivaCollege = new College();
+
+		College vivaCollege = new College("VIVA", "0523", "VIRAR");
+					
 		collegeInfo(vivaCollege);
 	}
 
 	public static void collegeInfo(College clg) {
 
-		System.out.println("College Name: " + College.getClgName() + " College ID: " + College.getClgId()
-				+ " College Address: " + College.getClgAddress());
-		
-		System.out.println("Student id: "+clg.);
+		System.out.println(
+				"ClgName:" + clg.getClgName() + " ClgID: " + clg.getClgId() + " ClgAddress:" + clg.getClgAddress());
+		for (Professor professor : clg.getProfessorsList()) {
+			System.out.println("Professor ID: " + professor.getId() + " Professor Address: " + professor.getAddress()
+					+ " Professor DOB: " + professor.getDob() + "Professor Salary: " + professor.getSalary());
+		}
+		for (Student student : clg.getStudentsList()) {
+			System.out.println("Student ID: " + student.getId() + " Student Address: " + student.getAddress()
+					+ " Student Branch: " + student.getBranch() + " Student DOB: " + student.getDob());
+		}
+		System.out.println();
 	}
 
 }

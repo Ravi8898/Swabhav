@@ -6,6 +6,7 @@ public class Account {
 	private String holderName;
 	private double balance;
 	private static final double MIN_AMOUNT = 500;
+	private double amount;
 
 	public Account(String accNo, String holderName) {
 
@@ -21,12 +22,14 @@ public class Account {
 	}
 
 	public void deposit(double amount) {
+		this.amount = amount;
 		this.balance = this.balance + amount;
 		System.out.println("Amount is Deposited in your account. \nThank You..!!!");
 	}
 
 	public void withdraw(double amount) {
 
+		this.amount = amount;
 		double updatedBalance = this.balance - amount;
 		if (updatedBalance >= MIN_AMOUNT && amount >= MIN_AMOUNT) {
 			this.balance = updatedBalance;
@@ -35,9 +38,13 @@ public class Account {
 			System.out.println("Enter the withdrawal amount more than or equal to 500");
 
 		} else {
-			throw new RuntimeException("Not Enough balance or Balance is less than 500");
+			throw new InsufficientFundException(this);
 		}
 
+	}
+
+	public double getAmount() {
+		return amount;
 	}
 
 	public String getAccNo() {

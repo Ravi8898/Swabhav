@@ -12,12 +12,13 @@ public class AccountTest {
 		account1.deposit(5000);
 		printInfo(account1);
 		try {
-			account2.withdraw(5501);
+			account2.withdraw(4500);
 			printInfo(account2);
 		} catch (InsufficientFundException e) {
 			System.out.println(e.getMessage());
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
+
 	}
 
 	public static void printInfo(Account account) {
