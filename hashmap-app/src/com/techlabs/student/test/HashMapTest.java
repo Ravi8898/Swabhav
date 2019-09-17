@@ -1,4 +1,4 @@
-package com.techlabs.student.hashmap.test;
+package com.techlabs.student.test;
 
 import java.util.HashMap;
 import java.util.Map;

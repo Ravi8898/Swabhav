@@ -1,6 +1,6 @@
 package com.techlabs.student;
 
-public class Student {
+public class Student implements Comparable{
 
 	private String name;
 	private int rollNo;
@@ -33,8 +33,15 @@ public class Student {
 	}
 	
 	@Override
+	
 	public int hashCode() {
 		return name.hashCode();
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
 
