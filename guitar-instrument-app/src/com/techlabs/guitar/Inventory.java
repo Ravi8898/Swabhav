@@ -18,7 +18,7 @@ public class Inventory {
 		inventory.add(instrument);
 	}
 
-	public Instrument getInstrument(String serialNumber) {
+	public Instrument get(String serialNumber) {
 		for (Iterator i = inventory.iterator(); i.hasNext();) {
 			Instrument instrument = (Instrument) i.next();
 			if (instrument.getSerialNumber().equals(serialNumber))

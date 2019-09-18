@@ -1,12 +1,12 @@
 package com.techlabs.guitar;
 
-public class Guitar {
+public class Instrument {
 
 	private String serialNumber;
 	private double price;
-	private GuitarSpec spec;
+	private InstrumentSpec spec;
 
-	public Guitar(String serialNumber, double price, GuitarSpec spec) {
+	public Instrument(String serialNumber, double price, InstrumentSpec spec) {
 
 		this.serialNumber = serialNumber;
 		this.price = price;
@@ -14,7 +14,7 @@ public class Guitar {
 
 	}
 
-	public GuitarSpec getSpec() {
+	public InstrumentSpec getSpec() {
 		return spec;
 	}
 
