@@ -7,11 +7,10 @@ import java.util.TreeMap;
 public class DataAnalyzer {
 
 	double maxSalary = 0;
-	Map<Employee, Employee> employeeList;
+	private Map<Employee, Employee> employeeList;
 
 	public DataAnalyzer(Parser parser) {
-		employeeList = parser.employees;
-//		getEmployeeBasedOnDepartmentNo();
+		employeeList = parser.parse();
 	}
 
 	public Employee getMaxSalariedEmployee() {
