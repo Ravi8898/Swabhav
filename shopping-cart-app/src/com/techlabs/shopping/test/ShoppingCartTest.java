@@ -1,9 +1,9 @@
 package com.techlabs.shopping.test;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 import com.techlabs.shopping.Customer;
 import com.techlabs.shopping.LineItem;
@@ -12,11 +12,11 @@ import com.techlabs.shopping.Product;
 
 public class ShoppingCartTest {
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
 
-//		OutputStream os = new FileOutputStream("/shopping-cart-app/Resources/invoice.html");
+//		OutputStream os = new FileOutputStream("Resources/invoice.html");
 //		PrintStream out = new PrintStream(os);
-		
+
 		Product product1 = new Product(401, "Book", 100, 20);
 		Product product2 = new Product(402, "Pen", 50, 10);
 		Product product3 = new Product(403, "Shoes", 1000, 30);
@@ -48,7 +48,11 @@ public class ShoppingCartTest {
 
 	public static void printInfo(Customer c) {
 
-		System.out.println("Hello " + c.getName() + ",\n" + "  Your Order details are: \n    ");
+		StringBuilder stringBuilder = new StringBuilder();
+
+		stringBuilder.append("<html><head><title>INVOICE</title></head><body>Hello " + c.getName() + ",<br>\n" + "  Your Order details are: \n<br>    ");
+
+		System.out.println("Hello " + c.getName() + ",<br>\n" + "  Your Order details are: \n<br>    ");
 		double totalCost = 0;
 		double totalOrderCost = 0;
 		for (Iterator i = c.getOrders().iterator(); i.hasNext();) {
@@ -56,26 +60,46 @@ public class ShoppingCartTest {
 			Order order = (Order) i.next();
 
 			System.out.print("  OrderID: " + order.getId() + " date: " + order.getDate());
+			stringBuilder.append("  OrderID: " + order.getId() + " date: " + order.getDate());
 
 			for (Iterator j = order.getItems().iterator(); j.hasNext();) {
 
 				LineItem lineItem = (LineItem) j.next();
 
-				System.out.println("\n    ProductName:" + lineItem.getProduct().getName() + " Price: "
-						+ lineItem.getProduct().getPrice() + " Quantity:" + lineItem.getQuantity() + "\n      Amount: "
+				System.out.println("ProductName:" + lineItem.getProduct().getName() + " Price: "
+						+ lineItem.getProduct().getPrice() + " Quantity: " + lineItem.getQuantity() + " Amount: "
 						+ lineItem.getProduct().calculateProductCost() + " Discount on Product: "
-						+ lineItem.getProduct().getDiscountPercentage() + " Total Product Cost:"
+						+ lineItem.getProduct().getDiscountPercentage() + " Total Product Cost: "
 						+ lineItem.calculateItemCost() + "\n");
+			
+				stringBuilder.append("\n<br>    ProductName:"
+						+ lineItem.getProduct().getName() + " Price: " + lineItem.getProduct().getPrice() + " Quantity:"
+						+ lineItem.getQuantity() + "\n<br>      Amount: " + lineItem.getProduct().calculateProductCost()
+						+ " Discount on Product: " + lineItem.getProduct().getDiscountPercentage()
+						+ " Total Product Cost:" + lineItem.calculateItemCost() + "\n<br>");
 				totalCost = totalCost + lineItem.calculateItemCost();
 			}
 			System.out.println("Total amount of order:" + totalCost);
+			stringBuilder.append("<br>Total amount of order:" + totalCost+"<br>");
 			System.out.println();
 			totalOrderCost = totalOrderCost + totalCost;
 
 		}
 
 		System.out.println("Total amount of All orders:" + totalOrderCost);
-
+		stringBuilder.append("\n<br>Total amount of All orders:" + totalOrderCost+"</body></html>");
+		
+		try {
+			FileWriter fileWriter=new FileWriter("Resources/invoice.html");
+			BufferedWriter bufferWriter=new BufferedWriter(fileWriter);
+			bufferWriter.write(stringBuilder.toString());
+			bufferWriter.close();
+		} catch (FileNotFoundException e) {		
+			System.out.println("File is not present on location...Please create file on given location.");
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 
 }
