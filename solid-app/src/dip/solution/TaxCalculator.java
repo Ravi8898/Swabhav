@@ -17,9 +17,9 @@ public class TaxCalculator {
 			String message = e.getMessage();
 			System.out.println("Something is wrong...Please enter valid number.");
 			logger.log(message);
-//			throw e;
+			throw e;
 		}
 
-		return -1;
+//		return -1;
 	}
 }
