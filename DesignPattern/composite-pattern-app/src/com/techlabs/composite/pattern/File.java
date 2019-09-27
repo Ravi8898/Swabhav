@@ -11,12 +11,13 @@ public class File implements IStorageItem{
 		this.name=name;
 		this.size=size;
 		this.extension=extension;
+//		display();
 	}
 
 	@Override
 	public void display() {
 		
-		System.out.println(this.name+",  "+this.size+",  "+this.extension);
+		System.out.println("File: "+name+",  "+size+",  "+extension);
 	}
 	
 	
