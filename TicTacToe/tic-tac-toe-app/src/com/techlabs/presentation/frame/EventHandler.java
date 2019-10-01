@@ -54,12 +54,11 @@ public class EventHandler implements ActionListener {
 				
 				if(gameFrame.getLabels()[4].getText().equals("DRAW")) {
 					game.switchPlayer();
-					gameFrame.getLabels()[6].setText(" Game Over...!!!");
+					gameFrame.getLabels()[6].setText(" ---Game Over...!!!");
 					gameFrame.getLabels()[6].setBounds(700,150,200,20);
 					
 				}
 					
-
 				gameFrame.add(gameFrame.getLabels()[4]);
 				gameFrame.add(gameFrame.getLabels()[3]);
 				gameFrame.add(gameFrame.getLabels()[5]);
