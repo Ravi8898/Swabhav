@@ -35,7 +35,7 @@ public class GameConsole {
 				System.out.println(e.getMessage());
 				
 			}
-			game.getResultAnalyzer().analyzeResult();
+			game.getStatus();
 
 		}
 		game.switchPlayer();

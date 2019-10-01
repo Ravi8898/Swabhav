@@ -17,10 +17,10 @@ public class Game {
 	}
 
 	public void switchPlayer() {
-		if (currentPlayer == this.players[0])
-			currentPlayer = this.players[1];
-		else if (currentPlayer == this.players[1])
-			currentPlayer = this.players[0];
+		if (currentPlayer == players[0])
+			currentPlayer = players[1];
+		else if (currentPlayer == players[1])
+			currentPlayer = players[0];
 	}
 
 	public void play(int location) {
@@ -28,24 +28,15 @@ public class Game {
 		if (!board.getCells()[location].checkDuplicateLocation()) {
 			board.setMarkAtLocation(location, currentPlayer);
 			switchPlayer();
-		}
+		} else
+			throw new CellIsAlreadyMarkedException("Cell is already Marked");
+		resultAnalyzer.analyzeResult();
+		status = resultAnalyzer.getResult();
+
 	}
 
 	public Result getStatus() {
-		status = resultAnalyzer.getResult();
 		return status;
-	}
-
-	public Player[] getPlayers() {
-		return players;
-	}
-
-	public Board getBoard() {
-		return board;
-	}
-
-	public ResultAnalyzer getResultAnalyzer() {
-		return resultAnalyzer;
 	}
 
 	public Player getCurrentPlayer() {

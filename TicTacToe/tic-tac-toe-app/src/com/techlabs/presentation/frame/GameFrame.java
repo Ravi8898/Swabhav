@@ -1,32 +1,25 @@
 package com.techlabs.presentation.frame;
 
 import java.awt.Color;
-import java.awt.Label;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
 import com.techlabs.business.model.Board;
-import com.techlabs.business.model.CellIsAlreadyMarkedException;
 import com.techlabs.business.model.Game;
 import com.techlabs.business.model.Mark;
 import com.techlabs.business.model.Player;
-import com.techlabs.business.model.Result;
 import com.techlabs.business.model.ResultAnalyzer;
 
-public class GameFrame extends JFrame implements ActionListener {
+public class GameFrame extends JFrame {
 
-	private static JButton[] buttons;
-	private static Label[] labels;
-	private static int n;
+	private JButton[] buttons;
+	private JLabel[] labels;
 
 	public GameFrame() {
 
 		buttons = new JButton[9];
-		labels = new Label[5];
+		labels = new JLabel[7];
 
 		setTitle("Tic-Tac-Toe");
 		setSize(1024, 768);
@@ -77,30 +70,21 @@ public class GameFrame extends JFrame implements ActionListener {
 
 	public void initializeComponent() {
 
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new JButton();
-			buttons[i].addActionListener(this);
 		}
 
-		for (int i = 0; i < 3; i++)
-			labels[i] = new Label();
+		for (int i = 0; i < labels.length; i++)
+			labels[i] = new JLabel();
 	}
 
 	public void addComponents() {
 
-		add(buttons[0]);
-		add(buttons[1]);
-		add(buttons[2]);
-		add(buttons[3]);
-		add(buttons[4]);
-		add(buttons[5]);
-		add(buttons[6]);
-		add(buttons[7]);
-		add(buttons[8]);
+		for (JButton button : buttons)
+			add(button);
 
-		add(labels[0]);
-		add(labels[1]);
-		add(labels[2]);
+		for (JLabel label : labels)
+			add(label);
 	}
 
 	public static void main(String[] args) {
@@ -115,30 +99,17 @@ public class GameFrame extends JFrame implements ActionListener {
 		ResultAnalyzer resultAnalyzer = new ResultAnalyzer(board);
 		Game game = new Game(players, board, resultAnalyzer);
 
-		while (!game.getStatus().equals(Result.WIN) && !game.getStatus().equals(Result.DRAW)) {
-			labels[3] = new Label(game.getCurrentPlayer().getName());
-			labels[3].setBounds(830, 80, 30, 20);
-			gameFrame.add(labels[3]);
-
-			labels[4] = new Label("" + game.getStatus());
-			labels[4].setBounds(830, 110, 80, 20);
-			gameFrame.add(labels[4]);
-			
-			try {
-			game.play(n);
-			}catch(CellIsAlreadyMarkedException e) {
-				System.out.println(e.getMessage());
-			}
-		}
+		EventHandler eventHandler = new EventHandler(game, gameFrame);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		for(int i=0; i<9; i++)
-		if(event.getSource()==buttons[i].getText()) {
-			n=Integer.parseInt(buttons[i].getText());
-		}
-		
+	public JButton[] getButtons() {
+		return buttons;
 	}
+
+	public JLabel[] getLabels() {
+		return labels;
+	}
+
+	
 
 }

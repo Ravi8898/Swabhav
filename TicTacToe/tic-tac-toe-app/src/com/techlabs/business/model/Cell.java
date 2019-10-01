@@ -28,7 +28,7 @@ public class Cell {
 	public boolean checkDuplicateLocation() {
 		
 		if(!isEmpty()) {
-			throw new CellIsAlreadyMarkedException("This cell is already marked...please choose another cell");
+			return true;
 		}
 		return false;
 	}
