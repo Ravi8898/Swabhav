@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.techlabs.business.model.Cell;
-import com.techlabs.business.model.MarkType;
+import com.techlabs.business.model.Mark;
 
 class CellTest {
 
@@ -15,11 +15,11 @@ class CellTest {
 	void testIsEmpty() {
 
 		cell[0] = new Cell();
-		cell[0].setMark(MarkType.E);
+		cell[0].setMark(Mark.E);
 		cell[1] = new Cell();
-		cell[1].setMark(MarkType.O);
+		cell[1].setMark(Mark.O);
 		cell[2] = new Cell();
-		cell[2].setMark(MarkType.X);
+		cell[2].setMark(Mark.X);
 		assertEquals(true, cell[0].isEmpty());
 		assertEquals(false, cell[1].isEmpty());
 		assertEquals(false, cell[2].isEmpty());
@@ -27,7 +27,8 @@ class CellTest {
 
 	@Test
 	void testCheckDuplicateLocation() {
-
-//		assertEquals(expected, actual);
+		
+		
+		
 	}
 }

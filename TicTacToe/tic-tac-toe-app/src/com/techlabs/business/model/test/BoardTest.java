@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.techlabs.business.model.Board;
-import com.techlabs.business.model.MarkType;
+import com.techlabs.business.model.Mark;
 
 class BoardTest {
 
@@ -15,7 +15,7 @@ class BoardTest {
 	void testIsBoardFull() {
 		
 		boolean mark = board.isBoardFull();
-		assertEquals(mark, MarkType.E);
+		assertEquals(false, mark);
 
 	}
 

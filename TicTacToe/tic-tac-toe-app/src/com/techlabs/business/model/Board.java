@@ -6,28 +6,30 @@ public class Board {
 
 	public Board() {
 
-		for(int i=0; i<cells.length; i++) {
-			cells[i]=new Cell();
+		for (int i = 0; i < cells.length; i++) {
+			cells[i] = new Cell();
 		}
 	}
 
 	public boolean isBoardFull() {
 
 		for (Cell cell : cells)
-			if (cell.getMark().equals(MarkType.E))
+			if (cell.isEmpty())
 				return false;
 			else
 				continue;
-
 		return true;
 	}
 
-	public void setMarkAtLocation(int location, int player) {
+	public void setMarkAtLocation(int location, Player player) {
 
-		if (player == 0)
-			cells[location].setMark(MarkType.O);
-		if (player == 1)
-			cells[location].setMark(MarkType.X);
+		
+		try {
+			cells[location].setMark(player.getMark());
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Please Enter position between 0-8");
+
+		}
 	}
 
 	public Cell[] getCells() {
