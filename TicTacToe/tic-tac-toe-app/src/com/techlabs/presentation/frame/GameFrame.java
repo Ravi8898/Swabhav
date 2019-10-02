@@ -93,7 +93,7 @@ public class GameFrame extends JFrame {
 
 		Player[] players = new Player[2];
 		players[0] = new Player("Ravi", Mark.O);
-		players[1] = new Player("Sunny", Mark.X);
+		players[1] = new Player("Rabba", Mark.X);
 
 		Board board = new Board();
 		ResultAnalyzer resultAnalyzer = new ResultAnalyzer(board);
