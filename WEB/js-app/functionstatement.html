@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <h1>Function Statement</h1>
+        <p id="ravi"></p>
+        <script>
+            document.getElementById("ravi").innerHTML=
+            "The Temperature is "+ toCelcius(50)+"degree celcius.";
+        function toCelcius(fahrenheit){
+            return (5/9)*(fahrenheit-32);
+
+        };
+
+        console.log(toCelcius(50));
+        
+        </script>
+    </body>
+</html>

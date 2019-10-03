@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <select id="selectcolors" onchange="changepagecolorbyvalue()">
+        <option selected="---select---">---select---</option>
+        <option value="#ff0000">Red</option>
+        <option value="#00ff00">Green</option>
+        <option value="#0000ff">Blue</option>
+        </select>
+
+        <script>
+         function changepagecolorbyvalue(){
+
+            var x=document.getElementById("selectcolors")
+            var color=x.options[x.selectedIndex].value
+            document.body.style.backgroundColor=color
+            console.log(color)
+            }
+        </script>
+    </body>
+</html>

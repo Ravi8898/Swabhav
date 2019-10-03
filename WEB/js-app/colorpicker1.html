@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        
+        <select id="selectcolors" onchange="changepagecolor()">
+            <option selected="select">---Select---</option>
+            <option label="Red">red</option>
+            <option label="Blue">blue</option>
+            <option label="Green">green</option>
+        </select>
+        
+ 
+        <script>
+
+        function changepagecolor(){
+
+           var dropDown=document.getElementById("selectcolors")
+           var color=dropDown.options[dropDown.selectedIndex].label
+           document.body.style.backgroundColor=color
+           console.log(color)
+        }
+        // console.log(changepagecolor())
+        </script>
+    </body>
+</html>

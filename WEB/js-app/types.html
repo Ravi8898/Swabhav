@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <script>
+        console.log(window)
+        console.log(this)
+        console.log(this==window)
+        console.log(document)
+        console.log(console)
+        console.log(location)
+        console.log(typeof document)
+        console.log(typeof window)
+        console.log(typeof location)
+        console.log(typeof console)
+
+        var foo;
+        console.log(typeof foo)
+        foo="Ravi"
+        console.log(typeof foo)
+        console.log(this.foo)
+        console.log(window.foo)
+        foo=20
+        console.log(typeof foo)
+        foo=true
+        console.log(typeof foo)
+        console.log('20'+'20')
+        console.log('20'+20)
+        console.log('20'*20)
+        foo={}
+        foo.bar=20
+        console.log(foo.bar)
+        console.log(foo['bar'])
+        console.log(window['document'])
+
+        console.log(typeof foo)
+        foo=function(){}
+        console.log(typeof foo)
+
+        </script>
+    </body>
+</html>

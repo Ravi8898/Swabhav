@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <title>Welcome</title>
+    <body style="text-align: center">
+          <!-- <p id="butn"></p> -->
+        <button id=butn>click here</button>
+        
+        <script>
+        
+        
+        function subscriber1() {
+            console.log("This is subscriber one")
+            
+        }
+        function subscriber2(){
+            console.log("This is subscriber two")
+        }
+        var register=document.getElementById("butn")
+        register.addEventListener("click",subscriber1)
+        register.addEventListener("click",subscriber2)
+
+        </script>
+        <button onclick="subscriber1(),subscriber2()">Hello</button>
+        
+    </body>
+</html>

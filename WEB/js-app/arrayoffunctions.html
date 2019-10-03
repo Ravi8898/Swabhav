@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    
+    <body>
+        <h2>Array of Functions</h2>
+        <p id="demo"></p>
+        <script>
+          //  debugger
+        function college() {
+            
+            "viva", 0523, "virar"
+            };
+        function students() {
+            
+            "Ravi","Sunny","xyz","abc"
+            };
+        function teachers() {
+            
+            "def","lmno"
+            };
+        array_of_function=[college,students,teachers()];
+        document.getElementById("demo").innerHTML=array_of_function[0];
+        console.log(typeof array_of_function);
+        debugger
+        for(var x of array_of_function){
+        console.log(x);
+        console.log(typeof x);   
+        }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <select id="selectcolors" onchange="addColors()">
+            <option selected="---select---">---select---</option>
+        </select>
+
+        <script>
+            
+            function changepagecolor(){
+
+                var colors=document.getElementById("selectcolors")
+
+                var x=document.getElementById("selectcolors")
+                var color=x.options[x.selectedIndex].value
+                document.body.style.backgroundColor=color
+                console.log(color)
+
+            }
+            function addColors(){
+                var colorlist=["---select---","Red","Blue","Green","Yellow"];
+                for(var i=0;i<colors.length;i++){
+
+                    var optn=document.createElement("OPTION");
+                    optn.label=colorlist[i];
+                    select.options.add(optn)
+                    }
+            }
+        </script>
+    </body>
+</html>
