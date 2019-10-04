@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .button {
+                    background-color: rgb(145, 5, 150);
+                    border: none;
+                    color: white;
+                    padding: 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    border-radius: 50%;
+                    }   
+            .button1{
+                    background-color: rgb(30, 147, 243);
+                    font-size: 30px;
+                    margin: 4px 2px;         
+                    }
+            .setButtonBlue{
+                background-color: blue
+            }   
+            .setButtonRed{
+                background-color: red
+            }
+            .setButtonGreen{
+                background-color: green
+            }             
+        </style>
+    </head>
+    <body style="text-align: center" style="background-color: chartreuse">
+
+            <div style="visibility: visible" id="rules" style="background-color: floralwhite">
+                <h1>Welcome to <font color="Blue">Blue Ball</font> Game</h1>
+                <h3>Hope you'll enjoy the Game</h3>
+                <h3><u><b>Rules</b></u></h3>
+                <ol style="text-align: left">
+                    <li><b>Please read the rules of game carefully...</b></li>                        
+                    <li><b>Press 'OK' to start the Game</b></li>
+                    </ol>
+                <ul style="text-align: left">
+                    <li>You have only 3 attempts to guess the Blue Ball</li>
+                    <li>If you guessed ball and the location is frontside of blueball then that ball will become<font color="#00ff00"> Green </font>color ball</li>
+                    <li>If you guessed ball and the location is backside of blueball then  that ball will become<font color="Red"> Red</font> color ball</li>
+                    <li>If you guessed the right ball then you'll win the game</li>
+                </ul>
+                <button class="button1" onclick="switchVisible()">OK</button>
+            </div>
+                
+            <div style="visibility:hidden" id="play">
+                            
+            </div>
+        
+        <script>
+            var element=document.getElementById("play")
+            var rulesDiv=document.getElementById("rules")
+            var blueButton=Math.random()*50
+            function addButton(){
+                console.log(blueButton)
+                for(i=1; i<=50; i++){
+
+                    var buttons=document.createElement("button")
+                    buttons.innerText=i
+                    buttons.setAttribute("class","button")
+
+                    buttons.addEventListener("click", function(){
+                        document.getElementById("button")
+                        if(buttons.innerText==blueButton)
+                        buttons.setAttribute("class","setButtonBlue")
+                        if(buttons.innerText>blueButton)
+                        buttons.setAttribute("class","setButtonGreen")
+                        if(buttons.innerText<blueButton)
+                        buttons.setAttribute("class","setButtonRed")
+                        console.log(buttons.innerText)
+                    });
+
+                    element.appendChild(buttons)
+                    if(i%10==0){
+                        element.innerHTML=element.innerHTML+"<br>"
+                    }
+                   
+                }
+            }
+ 
+            addButton()
+            
+            function switchVisible() {
+                if (element.style.visibility==='hidden') {
+                   element.style.visibility='visible'
+                   rulesDiv.style.visibility='hidden'
+                    
+                }
+                console.log("hello")
+            }
+        </script>
+       
+    </body>
+</html>
