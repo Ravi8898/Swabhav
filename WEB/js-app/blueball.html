@@ -10,14 +10,14 @@
                     text-align: center;
                     text-decoration: none;
                     display: inline-block;
-                    font-size: 16px;
+                    font-size: 1px;
                     margin: 4px 2px;
                     cursor: pointer;
                     border-radius: 50%;
                     }   
             .button1{
                     background-color: rgb(30, 147, 243);
-                    font-size: 30px;
+                    font-size: 15px;
                     margin: 4px 2px;         
                     }
             .setButtonBlue{
@@ -28,10 +28,16 @@
             }
             .setButtonGreen{
                 background-color: green
-            }             
+            }  
+            .setButton{
+                padding: 20px;
+
+                border: none;
+                border-radius: 12px;
+            }           
         </style>
     </head>
-    <body style="text-align: center" style="background-color: chartreuse">
+    <body style="text-align: center; background-color:paleturquoise">
 
             <div style="visibility: visible" id="rules" style="background-color: floralwhite">
                 <h1>Welcome to <font color="Blue">Blue Ball</font> Game</h1>
@@ -47,55 +53,112 @@
                     <li>If you guessed ball and the location is backside of blueball then  that ball will become<font color="Red"> Red</font> color ball</li>
                     <li>If you guessed the right ball then you'll win the game</li>
                 </ul>
-                <button class="button1" onclick="switchVisible()">OK</button>
-            </div>
+                <button class="button1 setButton" onclick="switchVisible(); startTimer()">OK</button>
                 
-            <div style="visibility:hidden" id="play">
-                            
             </div>
-        
+                  
+            <div style="visibility:hidden" id="play">
+                   
+                <p style="text-align: right"> Attempts: <span id="attempt"></span></p>
+                <p style="text-align: left">Time taken: <span id="timer"></span></p>
+                <button style="text-align: center" class="button1 setButton" id="restart">Restart</button>
+                    
+                <div id="restart1">
+                    <p> <span id="timerGame"></span></p>
+                    <p> <span id="won"></span> </p>
+                    <p> <span id="gameOver"></span></p>
+                </div>
+            </div>
+
         <script>
             var element=document.getElementById("play")
             var rulesDiv=document.getElementById("rules")
-            var blueButton=Math.random()*50
+            
+            var timer
+            var time1
+            var time2
+            document.getElementById("restart").addEventListener("click", restarts)
+            element1=document.getElementById("restart1")
             function addButton(){
-                console.log(blueButton)
+                timer=5000
+                
+                var attemps=3
+                var blueButton=Math.floor((Math.random()*50)+1)
+                // console.log(time1)
+                
                 for(i=1; i<=50; i++){
-
+                    // var time2=today.getTime()
                     var buttons=document.createElement("button")
                     buttons.innerText=i
                     buttons.setAttribute("class","button")
+                    document.getElementById("attempt").innerHTML=attemps
+                    
+                        buttons.addEventListener("click", function(){
+                            
+                            if(this.style.backgroundColor!="blue" && attemps>0){
+                            
+                                attemps=attemps-1
+                                document.getElementById("attempt").innerHTML=attemps
+                                document.getElementById("button")
+                                if(this.innerText==blueButton){
+                                    attemps=0
+                                    this.setAttribute("class","setButtonBlue button")
+                                    document.getElementById("won").innerHTML="You won the Game"
+                                }
+                                if(this.innerText>blueButton)
+                                    this.setAttribute("class","setButtonGreen button")
+                                if(this.innerText<blueButton)
+                                    this.setAttribute("class","setButtonRed button")
+                                // console.log(this.innerText)
+                            }
+                            if(attemps==0)
+                            gameOver()
 
-                    buttons.addEventListener("click", function(){
-                        document.getElementById("button")
-                        if(buttons.innerText==blueButton)
-                        buttons.setAttribute("class","setButtonBlue")
-                        if(buttons.innerText>blueButton)
-                        buttons.setAttribute("class","setButtonGreen")
-                        if(buttons.innerText<blueButton)
-                        buttons.setAttribute("class","setButtonRed")
-                        console.log(buttons.innerText)
-                    });
-
-                    element.appendChild(buttons)
-                    if(i%10==0){
-                        element.innerHTML=element.innerHTML+"<br>"
+                            
+                        });
+                       
+                        element1.appendChild(buttons)    
                     }
-                   
-                }
             }
- 
             addButton()
             
+            function gameOver(){
+                timer=0
+                var today=new Date()
+                time2=today.getTime()
+                
+                console.log(time2)
+                document.getElementById("timer").innerHTML=((time2-time1-1)/1000)
+                document.getElementById("gameOver").innerHTML="Game Over"
+
+            }
+
+            function timerGameOver(){
+
+                document.getElementById("gameOver").innerHTML="Game Over"
+                document.getElementById("timerGame").innerHTML="Time Out...!!!"
+            }
+            function restarts(){
+                document.getElementById("timer").innerHTML=""
+                document.getElementById("restart1").innerHTML="<p> <span id='timerGame'></span></p> <p> <span id='won'></span> </p><br><p> <span id='gameOver'></span></p>"
+                addButton()
+                startTimer()
+            }
+
             function switchVisible() {
                 if (element.style.visibility==='hidden') {
                    element.style.visibility='visible'
-                   rulesDiv.style.visibility='hidden'
-                    
+                   rulesDiv.style.visibility='hidden'       
                 }
-                console.log("hello")
+                document.getElementById("rules").innerHTML=""
+            }
+            function startTimer(){
+                var today=new Date()
+                
+                time1=today.getTime()
+                console.log(time1)
+                setTimeout(timerGameOver,timer)
             }
         </script>
-       
     </body>
 </html>
