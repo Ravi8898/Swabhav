@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            QuestionBank
+        </title>
+    </head>
+
+<div id="questionDiv">
+    <p><span id="questionNumber"></span></p>
+    <p> ID:<span id="id"></span></p>
+    <p> Question:<span id="qText"></span></p>
+    <input style="vertical-align: auto;" id="input0" type="radio" name="radioButton"><span id="option0"></span><br>
+    <input style="vertical-align: auto;" id="input1" type="radio" name="radioButton"><span id="option1"></span><br>
+    <input style="vertical-align: auto;" id="input2" type="radio" name="radioButton"><span id="option2"></span><br>
+    <input style="vertical-align: auto;" id="input3" type="radio" name="radioButton"><span id="option3"></span><br><br>
+   
+    <div id="nextDiv" style="text-align: center;">
+        <button id="previousButton" style="text-align: center;">Previous</button>
+        <button id="nextButton" style="text-align: center; visibility: visible;">Next</button>
+    </div>
+    <div id="finishDiv" style="text-align: center; visibility: hidden;">
+        <button id="previousButton" style="text-align: center;">Previous</button>
+        <button id="finishButton" style="text-align: center">Finish</button>
+    </div>
+</div>
+<div id="scoreDiv" style="visibility: hidden;">
+
+    <p style="text-align: center;"><h2 style="text-align: center;"><b style="text-align: center;"><u style="text-align: center;">Score</u></b></h2><span id="score"></span></p>
+    <p>Marked answer: </p>
+    <p><span id="examAnswer0"></span></p>
+    <p><span id="examAnswer1"></span></p>
+    <p><span id="examAnswer2"></span></p>
+    <p><span id="examAnswer3"></span></p>
+    <p><span id="examAnswer4"></span></p>
+</div>
+    <body>
+
+        <script>
+
+            var counter=0;
+            var counter1=0;
+
+            var correctAnswerCounter=0
+            var NACounter=0
+            var questions=[
+                {
+                    id: 1,
+                    text: "Launching date of Chandrayaan-2 is ________",
+                    options: ["22 june'18", "22 july'19", "2 september'19", "22 june'19"],
+                    answer: "22 july'19"
+                },
+                {
+                    id: 2,
+                    text: "Chief minister of Maharashtra",
+                    options: ["Narendra Modi", "Yogi Adityanath", "Devendra Fadnavis", "Vijay Rupani"],
+                    answer: "Devendra Fadnavis"
+                },
+                {
+                    id: 3,
+                    text: "The first-ever Floating Basketball Court of India is installed in ________",
+                    options: ["Kochi", "Puducherry", "Diu", "Mumbai"],
+                    answer: "Mumbai"
+                },
+                {
+                    id: 4,
+                    text: "___________ has become the third Indian to take a hat-trick in Test cricket??",
+                    options: ["Virat Kohli", "Jasprit Bumrah", "Ravindra Jadeja", "Ravichandran Ashwin"],
+                    answer: "Virat Kohli"
+                },
+                {
+                    id:5,
+                    text: "Which one is the first search engine in internet?",
+                    options: ["Google", "Internet Explorer", "Archie", "Altavista"],
+                    answer: "Archie"
+                }
+            ]
+            
+            document.getElementById("nextButton").addEventListener("click", displayQuestion,prevButton)
+            document.getElementById("finishButton").addEventListener("click", resultVisibility)
+            document.getElementById("previousButton").addEventListener("click", displayPrevQuestion)
+
+            function displayQuestion(){
+                if(counter1>0){
+                    storeExaminarAnswer()
+                    prevButton()
+                }
+                if(counter1==0)
+                    counter1++
+                    
+                document.getElementById("questionNumber").innerHTML=counter+1+"/"+questions.length
+                var buttonElement=document.getElementsByName("radioButton")
+                for(var i=0; i<buttonElement.length; i++){
+                    buttonElement[i].checked=false
+                }
+                if(counter<questions.length){
+                    document.getElementById("id").innerHTML=questions[counter].id
+                    document.getElementById("qText").innerHTML=questions[counter].text
+                    for(var i=0; i<questions[counter].options.length; i++)
+                        document.getElementById(`option${i}`).innerHTML=questions[counter].options[i]
+                    
+                    counter++;
+                    
+                }
+                
+                if(counter==questions.length){
+                    switchVisibility()
+                }
+                
+            }
+
+            displayQuestion()
+            prevButton()
+
+            function switchVisibility(){
+                document.getElementById("finishDiv").style.visibility='visible'
+                document.getElementById("nextDiv").innerHTML=""
+
+            }
+
+            function resultVisibility(){
+                storeExaminarAnswer()
+                document.getElementById("questionDiv").innerHTML=""
+                document.getElementById("scoreDiv").style.visibility='visible'
+                
+                // for(var i=0; i<questions.length; i++){
+                    
+                //     if(document.getElementById(`option${i}`).innerHTML==questions[i].answer)
+                //     correctAnswerCounter++
+                //     else if(document.getElementById(`option${i}`).innerHTML=="Not Selected")
+                //     NACounter++
+                //     console.log(correctAnswerCounter)
+                //     console.log(NACounter)
+                // }
+            }
+            
+            function storeExaminarAnswer(){
+                console.log(counter1)
+                var checkedCounter=0
+                var element=document.getElementsByName("radioButton")
+                    for(var j=0; j<element.length; j++){
+                        var optionValue=document.getElementById(`option${j}`).innerHTML
+                        if(element[j].checked){
+                            document.getElementById(`examAnswer${counter1-1}`).innerHTML=optionValue
+                            if(document.getElementById(`examAnswer${counter1-1}`).innerHTML==questions[j].answer)
+                                correctAnswerCounter++
+                            checkedCounter++
+                        }
+                    }
+                    if(checkedCounter==0){
+                        document.getElementById(`examAnswer${counter1-1}`).innerHTML="Not Selected"
+                        NACounter++
+                        
+                    }
+                    console.log(document.getElementById(`examAnswer${counter1-1}`).innerHTML)
+                    console.log(correctAnswerCounter)
+                    console.log(NACounter)
+                    counter1++
+            }
+
+            function displayPrevQuestion(){
+
+                counter-=2
+                console.log(counter)
+                document.getElementById("questionNumber").innerHTML=counter+1+"/"+questions.length
+                var buttonElement=document.getElementsByName("radioButton")
+                // for(var i=0; i<buttonElement.length; i++){
+                //     buttonElement[i].checked=false
+                // }
+                if(counter<questions.length){
+                    document.getElementById("id").innerHTML=questions[counter].id
+                    document.getElementById("qText").innerHTML=questions[counter].text
+                    for(var i=0; i<questions[counter].options.length; i++)
+                        document.getElementById(`option${i}`).innerHTML=questions[counter].options[i]
+                    
+                    counter++;
+                    
+                }
+            }
+
+            function prevButton(){
+
+                if(counter1>1)
+                    document.getElementById("previousButton").disabled=false
+                else
+                    document.getElementById("previousButton").disabled=true
+            }
+
+
+
+        </script>
+    </body>
+</html>

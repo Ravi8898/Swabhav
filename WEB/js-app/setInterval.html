@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <body style="text-align: center; background-color: wheat">
+        <h1>This is for example of setInterval</h1>
+        <p id="demo"></p>
+        <script>
+            var interval=setInterval(function() {
+                var d=new Date()
+                var time=d.toLocaleTimeString()
+                console.log(time)
+                document.getElementById("demo").innerHTML=time
+            }, 1000);
+        </script>
+    </body>
+</html>

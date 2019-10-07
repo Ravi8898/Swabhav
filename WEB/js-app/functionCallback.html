@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+        function doHomeWork(subject, callback){
+            alert(`starting my ${subject} homework`)
+            callback()
+        }
+        
+        function finishedHomework(){
+            alert('Finished my Homework')
+        }
+
+        doHomeWork('JavaScript', finishedHomework)
+        </script>
+    </body>
+</html>
