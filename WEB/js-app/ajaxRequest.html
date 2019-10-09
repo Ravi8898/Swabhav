@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="ajaxDiv"> 
+            <button id="ajaxButton">
+                Display Name
+            </button>
+        </div>
+
+        <script>
+            var names= new XMLHttpRequest()
+            document.getElementById("ajaxButton").addEventListener("click",loadNameFile)
+            function loadNameFile(){
+                var namesRequest = new XMLHttpRequest();
+                namesRequest.onreadystatechange = function() {
+                    console.log(this.responseText)
+                    document.getElementById("ajaxDiv").innerHTML =this.responseText;
+                    
+                };
+                namesRequest.open("GET", "name.txt");
+                namesRequest.send();
+
+            }
+        </script>
+    </body>
+</html>
