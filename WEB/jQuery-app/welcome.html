@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="jquery.js"></script>
+        <style>
+
+        h1 { 
+            /* border: 2px solid rgb(255, 33, 33);  */
+            /* color: rgb(7, 248, 7); */
+            /* padding-left: 15px;  */
+            /* text-align: center;
+            width: 350px; 
+            height: 80px;  */
+        } 
+        </style>
+    </head>
+    <body style="background-color: rgb(107, 107, 185);">
+        <h1 id="banner"></h1>
+        <script>
+            console.log("global jquey object is")    
+            console.log(jQuery)
+            console.log($==jQuery)
+            console.log($)
+            console.log(typeof $)
+            console.log(typeof jQuery)
+
+            // $("#banner").val()
+            // $("#banner").append("Welcome to JQuery");
+            var heading=$("#banner")
+            
+            heading.text("Welcome to JQuery");
+            heading.fadeOut(1000).delay(500).fadeIn(2000).delay(2000).fadeOut(1000).delay(500).fadeIn(2000).delay(2000)
+            // heading.fadeOut(6000)
+            heading.css("border", "3px solid rgb(255, 33, 33)")
+            heading.css("color", "rgb(7, 255, 7)")
+            heading.css("padding-top", "5px")
+            heading.css("text-align", "center")
+            heading.css("width", "350px")
+            heading.css("height", "50px")
+            $("h1").innerHTML
+            
+        </script>
+    </body>
+</html>

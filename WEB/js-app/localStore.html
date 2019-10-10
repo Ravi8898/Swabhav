@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LocalStorage</title>
+    </head>
+    <body style="text-align: center;">
+        <div>        
+            <p><span id="counterValue"></span></p>
+            <button id="plus">+</button>
+            <button id="minus">-</button>
+        </div>
+
+        
+        <script>
+    
+            document.getElementById("plus").addEventListener("click", increaseCounter)
+            document.getElementById("minus").addEventListener("click", decreaseCounter)
+            var displayCounter=document.getElementById("counterValue")
+            var counter=localStorage.getItem("counterState")
+            if(counter=="NaN"){
+                counter=0
+                displayCounter.innerHTML=counter
+            
+            }
+
+            function increaseCounter(){
+                counter++ 
+                displayCounter.innerHTML=counter
+                storeSession()
+            }
+
+            function decreaseCounter(){
+                counter--
+                displayCounter.innerHTML=counter
+                storeSession()
+            }
+
+            storeSession()
+            function storeSession(){
+                if (typeof(Storage) !== "undefined") {
+                    
+                    localStorage.setItem("counterState", counter)
+                    displayCounter.innerHTML=localStorage.getItem("counterState")
+                    console.log(displayCounter.innerHTML)
+                }
+            }
+        </script>
+    </body>
+</html>

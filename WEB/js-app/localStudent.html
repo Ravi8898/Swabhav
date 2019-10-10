@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Local Storage of Student
+        </title>
+    </head>
+
+    <body>
+
+        <p><span id="studentRollNo1"></span><span id="student1"></span><span id="studentAge1"></span></p>
+        <p><span id="studentRollNo2"></span> <span id="student2"></span><span id="studentAge2"></span></p>
+        <p><span id="studentRollNo3"></span> <span id="student3"></span><span id="studentAge3"></span></p>
+        <script>
+            var students=[
+                {
+                    rollNo: 101,
+                    name: "Ravi",
+                    age: 23 
+                },
+                {
+                    rollNo: 102,
+                    name: "Sunny",
+                    age: 21 
+                },
+                {
+                    rollNo: 103,
+                    name: "Akash",
+                    age: 22 
+                }
+            ]  
+            
+            console.log(students)
+            localStorage.setItem("students", JSON.stringify(students))
+            var studentString=localStorage.getItem("students")
+            console.log(studentString)
+
+            var retrieveStudent=JSON.parse(studentString)
+            console.log(retrieveStudent)
+
+            
+            for(var i=0; i<students.length; i++){
+
+                var studentName=document.getElementById(`student${i+1}`)
+                var studentRollNo=document.getElementById(`studentRollNo${i+1}`)
+                var studentAge=document.getElementById(`studentAge${i+1}`)
+                studentRollNo.innerHTML=retrieveStudent[i].rollNo
+                studentName.innerHTML=retrieveStudent[i].name
+                studentAge.innerHTML=retrieveStudent[i].age
+                console.log(studentName.innerHTML)
+            }
+        </script>
+    </body>
+</html>

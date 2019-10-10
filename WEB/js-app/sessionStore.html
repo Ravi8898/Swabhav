@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SessionStorage</title>
+    </head>
+    <body style="text-align: center;">
+        <div>        
+            <p><span id="counterValue"></span></p>
+            <button id="plus">+</button>
+            <button id="minus">-</button>
+        </div>
+
+        
+        <script>
+            
+            
+            document.getElementById("plus").addEventListener("click", increaseCounter)
+            document.getElementById("minus").addEventListener("click", decreaseCounter)
+            var displayCounter=document.getElementById("counterValue")
+            // displayCounter.innerHTML=sessionStorage.getItem("counterKey")
+            var counter=sessionStorage.getItem("counterKey")
+            if(counter=="null"){
+                counter=0
+                displayCounter.innerHTML=counter
+            
+            }
+            function increaseCounter(){
+                
+                counter++ 
+                displayCounter.innerHTML=counter
+                storeSession()
+            }
+
+            function decreaseCounter(){
+                // if(counter=="")
+                // counter=0
+                counter--
+                displayCounter.innerHTML=counter
+                storeSession()
+            }
+
+            storeSession()
+            
+            function storeSession(){
+                if (typeof(Storage) !== "undefined") {
+                    
+                    sessionStorage.setItem("counterKey",counter)
+                    displayCounter.innerHTML=sessionStorage.getItem("counterKey")
+                    if(counter=="null"){
+                        counter=0
+                        displayCounter.innerHTML=counter
+                    
+                    }
+                    // sessionStorage.setItem("counterValu", displayCounter.innerHTML)
+                    console.log(displayCounter.innerHTML)
+                }
+            }
+        </script>
+    </body>
+</html>
