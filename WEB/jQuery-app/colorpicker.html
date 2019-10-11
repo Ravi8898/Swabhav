@@ -8,34 +8,27 @@
         
         <select id="selectcolors">
             <option selected="select">---Select---</option>
-            <option style="background-color: red;" value="Red">Red</option>
+            <option style="background-color:red;" value="Red">Red</option>
             <option style="background-color:blue" value="Blue">Blue</option>
             <option style="background-color:green" value="Green">Green</option>
         </select>
         
- 
         <script>
-            // function changepagecolor(){
-            //    var dropDown=$("#selectcolors")
-                $(document).ready(function(){
-                    $("#selectcolors").change(function(){
-                        console.log("hello")
-                        setPageColor()
-                    })
+        
+            $(document).ready(function(){
+                $("#selectcolors").change(function(){
+                    console.log("hello")
+                    setPageColor()
                 })
+            })
 
-                function setPageColor(){
-                    console.log("hii")
-                    var color=$("#selectcolors").val()
-                    console.log(color)
-                    $("#bodyID").css('background-color', "color");
-                }
-                // var label="red"
-                // var color=$(this).find('option:selected').attr(label)
-                // $("#bodyID").css("background-color", "color")
-            //    $(this).css('background-color', "color");
-            // }
-            // console.log(changepagecolor())
+            function setPageColor(){
+                console.log("hii")
+                var color=$("#selectcolors").val()
+                console.log(color)
+                $("#bodyID").css('background-color', color);
+            }
+               
         </script>
     </body>
 </html>

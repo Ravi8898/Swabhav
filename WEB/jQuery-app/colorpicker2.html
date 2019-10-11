@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <script src="jquery.js"></script>  
+         
+   </head>
+
+   <body id="bodyID" style="background-color: khaki;">
+      <h1>ColorPicker with array</h1>
+      <div id="container"></div>
+
+      <script>
+
+        $(document).ready(function(){     
+            var colorOption = [
+                { "value": "select", "text": "---select---"  },
+                { "value": "red", "text": "Red"  },
+                { "value": "blue", "text": "Blue"  },
+                { "value": "green", "text": "Green"  },
+                { "value": "yellow", "text": "Yellow" }
+            ];
+   
+            var select = $("<select></select>").attr("id", "selectColors");
+            $.each(colorOption,function(index,colorOption){
+            select.append($("<option></option>").attr("value", colorOption.value).text(colorOption.text).css("background-color",colorOption.text));
+            });     
+            $("#container").html(select);
+            select.change(function(){
+                var color=select.val()
+                console.log(color)
+                $("#bodyID").css('background-color', color);
+            });
+        });                
+ 
+         </script>  
+   </body>
+</html>
