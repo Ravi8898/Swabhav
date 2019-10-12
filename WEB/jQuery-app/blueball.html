@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="jquery.js" ></script>
+    </head>
+    <title>BlueBallGame</title>
+    <body style="text-align: center; background-color:khaki ">
+
+        <div style="visibility: visible" id="rules" style="background-color: floralwhite">
+            <h1><i>Welcome to <font color="Blue">Blue Ball</font> Game</i></h1>
+            <h3>Hope you'll enjoy the Game</h3>
+            <h3><u><b>Rules</b></u></h3>
+            <ol style="text-align: left">
+                <li><b>Please read the rules of game carefully...</b></li>                        
+                <li><b>Press 'OK' to start the Game</b></li>
+                </ol>
+            <ul style="text-align: left">
+                <li>You have only 3 attempts to guess the Blue Ball</li>
+                <li>If you guessed ball and the location of blueball is behind of that ball then that ball will become<font color="Green"> Green </font>color ball</li>
+                <li>If you guessed ball and the location of blueball is ahead of that ball then that ball will become<font color="Red"> Red</font> color ball</li>
+                <li>If you guessed the right ball then you'll win the game</li>
+            </ul>
+            <button id="okId" class="button1 setButton">OK</button>      
+        </div>
+        <div style="visibility:visible " id="play">      
+            <p style="text-align: right"> Attempts: <span id="attempt"></span></p>
+            <p style="text-align: left">Time taken: <span id="timer"></span></p>
+            <button style="text-align: center" class="button1 setButton" id="restart">Restart</button><p></p>
+            <div id="demo1" ></div>
+            <!-- <div id="restart1">
+                <p> <span id="timerGame"></span></p>
+                <p> <b><span id="gameOver"  style="color:orangered"></b></span></p>
+            </div> -->
+        </div>
+
+        <script>
+
+            var element=$("#play")
+            var rulesDiv=$("#rules")
+            element.hide()
+            $('#okId').click(function () {
+                rulesDiv.empty()
+                element.show()
+                rulesDiv.hide()
+                addButton()
+            });
+
+            function addButton(){
+
+                var attemps=3
+                var blueButton=Math.floor((Math.random()*50)+1)
+                console.log(blueButton)
+                for(var i=1; i<=50; i++){     
+                    var buttons = $('<button class="colorButton" >'+ i + '</button>') 
+                    buttons.css('background-color','grey')
+                    buttons.css('border-radius','50%')
+                    buttons.css('font-size','30px')
+                    buttons.css('text-align','center')
+                    buttons.appendTo('#demo1');
+                    // console.log(buttons)   
+                } 
+
+                $('.colorButton').click(function () {
+                    attemps--
+                    var buttonNumber=$(this).text()
+                    if(attemps=>0){
+                        if(buttonNumber>blueButton)
+                        $(this).css('background-color','green')
+                        else if(buttonNumber<blueButton)
+                        $(this).css('background-color','red')
+                        else if(buttonNumber==blueButton)
+                        $(this).css('background-color','blue')
+                        console.log(buttonNumber)
+                    }
+                }); 
+            }
+
+        </script>        
+    </body>
+</html>

@@ -3,51 +3,46 @@
     <head>
         <script src="jquery.js"></script>             
     </head>
-    <body style="text-align: center">
+    <body style="text-align: center; background-color: khaki;">
         
         <input id="sliderRange" type="range", min="1", max="100" oninput="rangeSlider(this.value)">
-        <h2></h2>
+        <h2> </h2>
         <p id="notify">You pressed Button number <span id="clicked"></span></p>
-        <div id="demo1">
-
-
-        </div>
+        <div id="demo1"></div>
         
         <script>
-        var slider=$("#sliderRange")
-        var output=$("#rangeValue")
-        output.innerHTML=$("#sliderRange").val()
-        $("h2").html(output.innerHTML)
-        console.log(output.innerHTML)
-        function rangeSlider(value){
-            
-            $("#demo1").innerHTML = "";
-            $("h2").html(value)
-            output.innerHTML=value
+            var slider=$("#sliderRange")
+            var output=$("#rangeValue")
+            output.innerHTML=$("#sliderRange").val()
+            $("h2").html(output.innerHTML)
             console.log(output.innerHTML)
-            var buttonNumber=[]
-            for(var i=1; i<=output.innerHTML; i++){
-                buttonNumber.push(i)
-                console.log(buttonNumber)
-                var buttons = $('<button>'+ buttonNumber[i] + '</button>') 
-                buttons.appendTo('#buttonNumber');   
-                // var element= $("#demo1");  
-                // element.append($("<button></button>").attr("id", "button${i}")
-                
-                // var button=$("#button");
-                
-                // button.innerText=i
-                // button.click(function(){
-                //     $("p")=this.innerHTML
-                //     alert("You clicked button number "+this.innerHTML)
-                // });
-               
-                // element.append(button)
-                
+
+            function rangeSlider(value){
+
+                $("#demo1").empty();        
+                $("h2").html(value)
+                output.innerHTML=value
+                console.log(output.innerHTML)
+                for(var i=1; i<=output.innerHTML; i++){     
+                    var buttons = $('<button>'+ i + '</button>') 
+                    buttons.appendTo('#demo1');          
+                }
+
+                $(document).ready(function () {
+                    var back = ["#dd0000","#2222dd","gray","yellow","voilet","cyan","#22aa22"];
+                    var rand = back[Math.floor(Math.random() * back.length)];
+                    $('button').css('background',rand);
+                })
+
+                $('button').click(function () {
+                    var buttonNumber=$(this).text()
+                    var clickedButton=$("#clicked")
+                    clickedButton.html(buttonNumber)
+                    alert('Button number '+buttonNumber + ' was clicked');
+                    
+                });
             }
-            
-        }
-      
+
         </script>
     </body>
 </html>

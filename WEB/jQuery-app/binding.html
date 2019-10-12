@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="jquery.js"></script>  
+        <title>
+            Binding
+        </title>
+    </head>
+    <body style="background-color: khaki;" >
+        <h1>Binding using jQuery</h1>
+        <p id="textID">Text: <input id="textInput" type="text" value="" /></p>
+        <p id="backColorID">Background Color: <div id="container"></div></p>
+        <p id="fontColorID">Font Color: <div id="container1"></div></p>
+        <p id="fontSizeID">Font Size: <input id="fontSizeInput" type="text"/><span id="errmsg"></span>  </p>
+        <h3>TextBox value : <label id="message"></label></h3>
+
+        <script>
+            $(document).ready(function(){     
+                var colorOption = [
+                    { "value": "select", "text": "---select---"  },
+                    { "value": "red", "text": "Red"  },
+                    { "value": "blue", "text": "Blue"  },
+                    { "value": "green", "text": "Green"  },
+                    { "value": "yellow", "text": "Yellow" }
+                ];
+    
+                var backSelect = $("<select></select>").attr("id", "selectColors");
+                $.each(colorOption,function(index,colorOption){
+                backSelect.append($("<option></option>").attr("value", colorOption.value).text(colorOption.text).css("background-color",colorOption.text));
+                }); 
+                $("#container").html(backSelect);
+                backSelect.change(function(){
+                    var color=backSelect.val()
+                    console.log(color)
+                    $("#message").css('background-color', color);
+                });    
+
+                var fontSelect = $("<select></select>").attr("id", "selectColors1");
+                $.each(colorOption,function(index,colorOption){
+                fontSelect.append($("<option></option>").attr("value", colorOption.value).text(colorOption.text).css("background-color",colorOption.text));
+                }); 
+                $("#container1").html(fontSelect);
+                fontSelect.change(function(){
+                    var color=fontSelect.val()
+                    console.log(color)
+                    $("#message").css('color', color);
+                });
+            }); 
+
+            $("#textInput").on("keyup change", function() {
+                var value = this.value;
+                $("#message").text(value);
+            });
+
+            $("#fontSizeInput").on("keyup change", function(e) {
+                var value = this.value;
+                value=parseInt(value)
+                $("#message").css("font-size", value);
+            });
+
+            $(document).ready(function () {
+                
+                $("#fontSizeInput").keypress(function (e) {
+                    console.log(e.which)
+                    if (e.which < 48 || e.which > 57) {
+                        $("#errmsg").html("Enter Digits Only").show().fadeOut(1000).css('color', 'red');      
+                            return false;
+                    }
+                });
+            });
+            
+        </script>
+    </body>
+</html>
