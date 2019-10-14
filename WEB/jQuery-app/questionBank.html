@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Question Bank 2
+        </title>
+        <style>
+            * {
+                box-sizing: border-box;
+                }
+            .column {
+            float: left;
+            width: 33.3%;
+            padding: 10px;
+            height: 300px; 
+            }
+            .row:after {
+            content: "";
+            display: table;
+            clear: both;
+            }
+        </style>
+        <script src="jquery.js" ></script>
+    </head>
+    <body>
+        <div id="questions" >
+            <h1>Welcome to Quiz Game!!!</h1>
+            <p id="totalquestions"></p>
+            <p>Id: <span id="questionid"></span> </p>
+            <p id="q"></p>
+            
+            <input id="radio0" type="radio" style="vertical-align: auto" class="options" onclick= ><span id="q0"></span><br>
+            <input id="radio1" type="radio" style="vertical-align: auto" class="options" ><span id="q1"></span><br>
+            <input id="radio2" type="radio" style="vertical-align: auto" class="options" ><span id="q2"></span><br>
+            <input id="radio3" type="radio" style="vertical-align: auto" class="options" ><span id="q3"></span><br>
+            
+            <button id="previousbutton">Previous</button>
+            <button id="nextbutton">Next</button>
+            <button id="finishbutton">Finish</button>
+        </div>
+
+        <div class="row" id="scores" style="background-color: khaki">
+            <h1 style="text-align: center" >Score Card</h1>
+
+            <div class="column">
+                <h3>Marked answer</h3>
+                <p><span id="answers0"></span> </p>
+                <p><span id="answers1"></span> </p>
+                <p><span id="answers2"></span> </p>
+                <p><span id="answers3"></span> </p>
+                <p><span id="answers4"></span> </p>
+            </div>
+
+            <div class="column" >
+                <h3>Right Answer</h3>
+                <p><span id="rightAnswers0"></span> </p>
+                <p><span id="rightAnswers1"></span> </p>
+                <p><span id="rightAnswers2"></span> </p>
+                <p><span id="rightAnswers3"></span> </p>
+                <p><span id="rightAnswers4"></span> </p>
+
+            </div>
+
+            <div class="column" id="chartContainer"></div>
+            <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> 
+
+            <p><span id="correctanswer"></span> </p>
+            <p><span id="wronganswer"></span> </p>
+            <p><span id="notselected"></span> </p>
+            
+        </div>
+        
+        <script>
+            var questionCounter=0
+            var correctAnswer=0
+            var wrongAnswer=0
+            var nacounter=0;
+            var radiovalue=$('.options')
+            var userAnswers=[]
+            var previousbutton=$("#previousbutton")
+
+            var nextbutton=$("#nextbutton")
+            var finishbutton=$("#finishbutton")
+            var questiontext=$("#q")
+            var totalquestions=$("#totalquestions")
+            var questionid=$("#questionid")
+
+            var questions=[
+                {
+                    id: 1,
+                    text: "Launching date of Chandrayaan-2 is ________",
+                    option: ["22 june'18", "22 july'19", "2 september'19", "22 june'19"],
+                    answer: "22 july'19"
+                },
+                {
+                    id: 2,
+                    text: "Chief minister of Maharashtra",
+                    option: ["Narendra Modi", "Yogi Adityanath", "Devendra Fadnavis", "Vijay Rupani"],
+                    answer: "Devendra Fadnavis"
+                },
+                {
+                    id: 3,
+                    text: "The first-ever Floating Basketball Court of India is installed in ________",
+                    option: ["Kochi", "Puducherry", "Diu", "Mumbai"],
+                    answer: "Mumbai"
+                },
+                {
+                    id: 4,
+                    text: "___________ has become the third Indian to take a hat-trick in Test cricket??",
+                    option: ["Virat Kohli", "Jasprit Bumrah", "Ravindra Jadeja", "Ravichandran Ashwin"],
+                    answer: "Jasprit Bumrah"
+                },
+                {
+                    id:5,
+                    text: "Which one is the first search engine in internet?",
+                    option: ["Google", "Internet Explorer", "Archie", "Altavista"],
+                    answer: "Archie"
+                }
+            ]
+            
+            $(document).ready(function(){
+                for(var i=0;i<questions.length;i++)
+                    userAnswers.push("NA")
+                var questionid=$("questionid")
+                previousbutton.hide()
+                finishbutton.hide()
+                $("#scores").hide()
+                console.log(userAnswers)
+            })
+
+            previousbutton.click(function() {
+                showPrevQuestions()
+		        // saveState1()
+            })
+            nextbutton.click(function() {
+                showQuestions()
+		        // saveState()
+                previousbutton.show()
+            })
+            finishbutton.click(function() {
+                setResultVisibility()
+                printUserAnswers()
+                increementAnswerCount()
+                printCounters()
+                
+            })
+            function showQuestions(){
+                
+                var currentID=questions[questionCounter].id
+                questionid.html(currentID)
+                var currentStatus=(questionCounter+1)+"/"+questions.length
+                totalquestions.html(currentStatus)
+                if(questionCounter==questions.length-1)
+                    enableFinishButton()
+                if(questionCounter<questions.length){
+                    questiontext.html(questions[questionCounter].text)
+                for(var i=0;i<questions[questionCounter].option.length ;i++){
+                   $(`#q${i}`).html(questions[questionCounter].option[i])
+                    $(`#radio${i}`).val(questions[questionCounter].option[i])
+                }
+                    questionCounter++    
+                }
+
+                var optionelement=$(".options")
+                uncheckRadioValue()
+                if(userAnswers[currentID-1]!="NA") {
+                    for(var i=0; i<radiovalue.length; i++) {
+                        if($(`#q${i}`).text()==userAnswers[currentID-1] )
+                        optionelement[i].checked=true
+                    }  
+                }             
+            }
+
+            function showPrevQuestions(){
+                questionCounter-=2
+                var currentID=questions[questionCounter].id
+                questionid.html(currentID)
+                enableFinishButton()
+                totalquestions.html((questionCounter+1)+"/"+questions.length)
+                if(questionCounter<questions.length){
+                    questiontext.html(questions[questionCounter].text)
+                for(var i=0;i<questions[questionCounter].option.length ;i++){
+                    $(`#q${i}`).html(questions[questionCounter].option[i])
+                    $(`#radio${i}`).val(questions[questionCounter].option[i])
+                }
+                    questionCounter++
+                }    
+                if(questionCounter==1)
+                    previousbutton.hide()
+                
+                var optionelement=$(".options")
+                uncheckRadioValue()
+                if(userAnswers[currentID-1]!="NA") {
+                    for(var i=0; i<radiovalue.length; i++) {
+                        if($(`#q${i}`).text()==userAnswers[currentID-1])
+                        optionelement[i].checked=true
+                    }
+                }
+            }
+
+           function setResultVisibility(){
+            // storeRadioValue()
+                $("#questions").hide()
+                $("#scores").show()
+           }
+
+            function enableFinishButton(){
+                if(questionCounter==questions.length-1){
+                    nextbutton.hide()
+                    finishbutton.show()
+                }
+                if(questionCounter<questions.length-1){
+                    nextbutton.show()
+                    finishbutton.hide()
+                }
+            }
+
+            $(".options").click(function(){
+
+                $('.options').not(this).prop('checked', false);
+                var optionelement=$(".options")
+                var value
+                for(var i=0; i<radiovalue.length; i++) {
+                    if(optionelement[i].checked)
+                    value= $(`#q${i}`).text()
+                }
+                
+                // console.log(value)
+                // console.log(questionid.text())
+                // console.log(questions[questionid.text()-1].option[value] )
+                // delete userAnswers[questionid.text -1]
+                userAnswers[questionid.text() -1]=value
+                // console.log(userAnswers[questionid.text()-1])
+                console.log(userAnswers)
+                // console.log(userAnswers[questionid.text -1])
+                // console.log(userAnswers)
+
+            });
+
+        function printUserAnswers(){
+            for(var i=0;i<userAnswers.length;i++){
+                $(`#answers${i}`).html(userAnswers[i])
+                console.log(questions[i].answer)
+                $(`#rightAnswers${i}`).html(questions[i].answer)
+            }
+        }
+        function increementAnswerCount(){
+            for(var i=0;i<userAnswers.length;i++)
+            if(userAnswers[i]==questions[i].answer)
+                correctAnswer++
+            for(var i=0;i<questions.length;i++)
+                if(userAnswers[i]=='NA')
+                    nacounter++  
+        }
+            function printCounters(){
+                $("#correctanswer").html("Correct Answers: "+correctAnswer)
+                wrongAnswer=questions.length-correctAnswer-nacounter
+                $("#wronganswer").html("Wrong Answers: "+wrongAnswer)
+                $("#notselected").html("Not Selected: "+nacounter)
+                console.log(questions.length)
+                drawChart()
+            }
+
+            function drawChart() {
+                $("#chartContainer").CanvasJSChart({ 
+                title: { 
+                    text: "ScoreCard in pie Chart",
+                    fontSize: 24
+                }, 
+                axisY: { 
+                    title: "Scores in %" 
+                }, 
+                legend :{ 
+                    verticalAlign: "center", 
+                    horizontalAlign: "right" 
+                }, 
+                data: [ 
+                { 
+                    type: "pie", 
+                    showInLegend: true, 
+                    toolTipContent: "{label} <br/> {y} %", 
+                    indexLabel: "{y} %", 
+                    dataPoints: [ 
+                        { label: "Correct",  y: (correctAnswer/questions.length)*100 , legendText: "Correct"}, 
+                        { label: "Wrong",    y: (wrongAnswer/questions.length)*100, legendText: "Wrong"  }, 
+                        { label: "NA",   y: (nacounter/questions.length)*100,  legendText: "Not Attempted" }, 
+                    ] 
+                } 
+                ] 
+            }); 
+            }
+
+            function uncheckRadioValue(){
+                var optionelement=$(".options")
+                for(var i=0;i<optionelement.length;i++)
+                optionelement[i].checked=false
+            }
+            showQuestions();
+
+        </script>
+    </body>
+</html>

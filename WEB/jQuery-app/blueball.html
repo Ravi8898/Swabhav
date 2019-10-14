@@ -5,7 +5,6 @@
     </head>
     <title>BlueBallGame</title>
     <body style="text-align: center; background-color:khaki ">
-
         <div style="visibility: visible" id="rules" style="background-color: floralwhite">
             <h1><i>Welcome to <font color="Blue">Blue Ball</font> Game</i></h1>
             <h3>Hope you'll enjoy the Game</h3>
@@ -20,34 +19,38 @@
                 <li>If you guessed ball and the location of blueball is ahead of that ball then that ball will become<font color="Red"> Red</font> color ball</li>
                 <li>If you guessed the right ball then you'll win the game</li>
             </ul>
-            <button id="okId" class="button1 setButton">OK</button>      
+            <button id="okId" style="border-radius:50%; font-size:20px; cursor:pointer" class="button1 setButton">OK</button>      
         </div>
         <div style="visibility:visible " id="play">      
             <p style="text-align: right"> Attempts: <span id="attempt"></span></p>
             <p style="text-align: left">Time taken: <span id="timer"></span></p>
-            <button style="text-align: center" class="button1 setButton" id="restart">Restart</button><p></p>
+            <button style="text-align: center; font-size:20px;cursor:pointer " class="button1 setButton" id="restart">Restart</button><p></p>
             <div id="demo1" ></div>
-            <!-- <div id="restart1">
-                <p> <span id="timerGame"></span></p>
-                <p> <b><span id="gameOver"  style="color:orangered"></b></span></p>
-            </div> -->
+            <p id="resultDisp"></p>
         </div>
 
         <script>
 
+            var timer   
+            var startTime
+            var timeLimit=10000
             var element=$("#play")
             var rulesDiv=$("#rules")
+            var attemps=3
+
             element.hide()
             $('#okId').click(function () {
                 rulesDiv.empty()
                 element.show()
                 rulesDiv.hide()
                 addButton()
+                startTime = new Date().getTime();
+                timer=setTimeout(timpeUp,timeLimit)
             });
 
+            
             function addButton(){
-
-                var attemps=3
+                $("#attempt").html(attemps)
                 var blueButton=Math.floor((Math.random()*50)+1)
                 console.log(blueButton)
                 for(var i=1; i<=50; i++){     
@@ -55,26 +58,61 @@
                     buttons.css('background-color','grey')
                     buttons.css('border-radius','50%')
                     buttons.css('font-size','30px')
+                    buttons.css('margin',  '4px 2px')
                     buttons.css('text-align','center')
-                    buttons.appendTo('#demo1');
-                    // console.log(buttons)   
-                } 
+                    buttons.css('display', 'inline-block')
+                    buttons.css('cursor', 'pointer')
+                    buttons.appendTo('#demo1');  
+                }
 
-                $('.colorButton').click(function () {
-                    attemps--
+                $('.colorButton').click(function () {     
                     var buttonNumber=$(this).text()
-                    if(attemps=>0){
+                    timeTaken=(new Date().getTime()-startTime)
+                    console.log(timeTaken)
+                    if(attemps>0 && timeTaken<timeLimit ){
+                        attemps--
+                        $("#attempt").html(attemps)
                         if(buttonNumber>blueButton)
                         $(this).css('background-color','green')
                         else if(buttonNumber<blueButton)
                         $(this).css('background-color','red')
-                        else if(buttonNumber==blueButton)
+                        else if(buttonNumber==blueButton){
                         $(this).css('background-color','blue')
                         console.log(buttonNumber)
+                        attemps=0
+                        $("#resultDisp").html("You won the Game...!!!")
+                        timeTaken=(new Date().getTime()-startTime)/1000
+                        $("#timer").html(timeTaken+" seconds")
+                        clearTimeout(timer)
+                        }
+                    }
+                 
+                    var color= $(this).css('background-color')
+                    console.log(color)
+                    if(attemps==0 && (color!="rgb(0, 0, 255)" && color!="rgb(128, 128, 128)")){
+                    $("#resultDisp").html("Game Over...!!!")  
+                    timeTaken=(new Date().getTime()-startTime)/1000
+                    $("#timer").html(timeTaken+" seconds")
+                    clearTimeout(timer)
                     }
                 }); 
             }
 
+            $(document).ready(function () { 
+                $("#restart").click(function(){
+                    $("#demo1").empty()
+                    $("#resultDisp").html("")
+                    attemps=3
+                    addButton()
+                    $("#timer").html("")
+                    startTime = new Date().getTime();
+                    timer=setTimeout(timpeUp,timeLimit)
+                });
+            });
+
+            function timpeUp(){
+                $("#resultDisp").html("Time Over...!!!") 
+            }            
         </script>        
     </body>
 </html>

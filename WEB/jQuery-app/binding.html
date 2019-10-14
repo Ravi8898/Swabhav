@@ -52,14 +52,13 @@
                 $("#message").text(value);
             });
 
-            $("#fontSizeInput").on("keyup change", function(e) {
+            $("#fontSizeInput").on("keyup change", function() {
                 var value = this.value;
                 value=parseInt(value)
                 $("#message").css("font-size", value);
             });
 
-            $(document).ready(function () {
-                
+            $(document).ready(function () {    
                 $("#fontSizeInput").keypress(function (e) {
                     console.log(e.which)
                     if (e.which < 48 || e.which > 57) {

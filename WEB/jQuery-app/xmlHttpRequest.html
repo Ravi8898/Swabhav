@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>XMLHttpRequest </title>
+        <script src="jquery.js" ></script>
+    </head>
+    <body>
+        <div id="ajaxDiv"> 
+            <button id="ajaxButton">
+                Display Name
+            </button>
+        </div>
+
+        <script>
+            $("#ajaxButton").click(function() {
+                $.get("name.txt",function(data) {
+                    var lines = data.split(",");
+                    $("#ajaxButton").hide()
+                    $.each(lines, function(n, elem) {
+                        $('#ajaxDiv').append("<div id='ajaxDiv'>" + elem + '</div>');
+                    });
+                })
+            });
+        </script>
+    </body>
+</html>

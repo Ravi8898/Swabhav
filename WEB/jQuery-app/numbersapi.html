@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NumbersAPI </title>
+        <script src="jquery.js" ></script>
+
+    </head>
+    <body>
+        <div id="ajaxDiv"> 
+            <input type="text" id="number"/><span id="errmsg"></span>  </p>
+            <button id="ajaxButton">
+                Find Facts
+            </button>
+        </div>
+        <div id="numberFacts"></div>
+
+        <script>
+
+            var showFacts=$("#numberFacts")
+            $(document).ready(function () {    
+                $("#number").keypress(function (e) {
+                    console.log(e.which)
+                    if (e.which < 48 || e.which > 57) {
+                        $("#errmsg").html("Enter Digits Only").show().fadeOut(1000).css('color', 'red');      
+                            return false;
+                    }
+                });
+            });
+
+            $("#ajaxButton").click(function() {
+               
+                var value
+                value= $("#number").val()
+                console.log(value)
+                    // value = this.value;
+                value=parseInt(value)
+                // showFacts.html(location.replace("http://numbersapi.com/"+values))
+                $.get("http://numbersapi.com/"+value, function(data) {
+                    var lines = data.split("\n");
+                    // $("#ajaxButton").hide()
+                    $.each(lines, function(n, elem) {
+                        showFacts.html("<div id='ajaxDiv'>" + elem + '</div>');
+                    });
+                });
+            });
+                
+                    // var lines = data.split(",");
+                    // $("#ajaxButton").hide()
+                    
+           
+        </script>
+    </body>
+</html>
