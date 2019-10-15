@@ -29,9 +29,9 @@
             <p>Id: <span id="questionid"></span> </p>
             <p id="q"></p>
             
-            <input id="radio0" type="radio" style="vertical-align: auto" class="options" onclick= ><span id="q0"></span><br>
-            <input id="radio1" type="radio" style="vertical-align: auto" class="options" ><span id="q1"></span><br>
-            <input id="radio2" type="radio" style="vertical-align: auto" class="options" ><span id="q2"></span><br>
+            <input id="radio0" type="radio" style="vertical-align: auto" class="options"><span id="q0"></span><br>
+            <input id="radio1" type="radio" style="vertical-align: auto" class="options"><span id="q1"></span><br>
+            <input id="radio2" type="radio" style="vertical-align: auto" class="options"><span id="q2"></span><br>
             <input id="radio3" type="radio" style="vertical-align: auto" class="options" ><span id="q3"></span><br>
             
             <button id="previousbutton">Previous</button>
@@ -130,13 +130,12 @@
 
             previousbutton.click(function() {
                 showPrevQuestions()
-		        // saveState1()
             })
             nextbutton.click(function() {
                 showQuestions()
-		        // saveState()
                 previousbutton.show()
             })
+            
             finishbutton.click(function() {
                 setResultVisibility()
                 printUserAnswers()
@@ -199,7 +198,6 @@
             }
 
            function setResultVisibility(){
-            // storeRadioValue()
                 $("#questions").hide()
                 $("#scores").show()
            }
@@ -215,8 +213,7 @@
                 }
             }
 
-            $(".options").click(function(){
-
+            $(".options").click(function() {
                 $('.options').not(this).prop('checked', false);
                 var optionelement=$(".options")
                 var value
@@ -224,16 +221,9 @@
                     if(optionelement[i].checked)
                     value= $(`#q${i}`).text()
                 }
-                
-                // console.log(value)
-                // console.log(questionid.text())
-                // console.log(questions[questionid.text()-1].option[value] )
-                // delete userAnswers[questionid.text -1]
                 userAnswers[questionid.text() -1]=value
                 // console.log(userAnswers[questionid.text()-1])
                 console.log(userAnswers)
-                // console.log(userAnswers[questionid.text -1])
-                // console.log(userAnswers)
 
             });
 

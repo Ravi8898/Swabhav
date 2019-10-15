@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            table, th, td {
+                border: 2px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+                text-align: center;    
+            }
+        </style>
+        <title>Students API</title>
+        <script src="jquery.js"></script>
+    </head>
+    <body>
+        <div id="form">
+            <form method="GET">
+                <fieldset class="scheduler-border">
+                    <h2 class="scheduler-border">Fill Student Details to add</h2>
+                    <div class="form-inline">
+                        <label>Roll No. : </label><input type="number" class="form-control" id="rollNo" required>
+                    </div>
+                    <br>
+                    <div class="form-inline">
+                        <label>Name : </label><input type="text" id="name" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="form-inline">
+                        <label>Age : </label><input type="number" class="form-control" min=0 max=80 id="age" required>
+                    </div>
+                    <br>
+                    <div class="form-inline">
+                        <label>Email : </label><input type="email" id="email" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="form-inline">
+                        <label>Date : </label><input type="date" class="form-control" id="date" required>
+                    </div>
+                    <br>
+    
+                    <div class="form-inline">
+                        <input type="radio" id="male" class="form-control" name="gender" value="male"
+                            required><label>Male</label>
+                        <input type="radio" id="female" class="form-control" name="gender" value="female"
+                            required><label>Female</label>
+                    </div>
+                    <br>
+    
+                    <button id="addButton" style="background-color:#00aa00;" class="btn btn-primary" value="Add" onclick="addStudent()">Add Student</button>
+                    <span id="updateButton"></span>
+                    <!-- <span id="cancelUpdate"></span> -->
+                </fieldset>
+            </form>
+        </div>
+        <div><h1 style="font-style: italic;">StudentList</h1></div>
+        <!-- <center><img id="loading"></center> -->
+        <fieldset class="scheduler-border">
+            <div id="table">
+            </div>
+        </fieldset>
+
+        <script>
+
+            var students = []
+            function Student(rollNo, name, age, email, date, isMale) {
+                this.rollNo = rollNo
+                this.name = name
+                this.age = age
+                this.email = email
+                this.date = date
+                this.isMale = isMale
+            }
+
+            getStudentData();
+
+            function getStudentData() {
+                // $("#addButton").attr("disabled", true)
+                $("#table").html(" ")
+                
+                var textInput = ""
+                $.ajax({
+                    type: "GET",
+                    url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students", success: function (result) {
+                        // document.getElementById("loading").style.display = "Loading"
+                        students = result
+                        console.log(students)
+                        textInput += "<table id=tableArea class='table table-bordered'> <br> <tr> <th>Id</th> <th>RollNo</th> <th>Name</th> <th>Age</th> <th>Email</th> <th>Date</th> <th>Gender</th><th>Edit</th><th>delete</th></tr>"
+                        for (var i = 0; i < students.length; i++) {
+                            textInput += "<tr><td>" + students[i].id + "</td><td>" + students[i].rollNo + "</td><td>" + students[i].name + "</td><td>" + students[i].age + "</td>"
+                                + "<td>" + students[i].email + "</td><td>" + students[i].date + "</td><td>" + getGender(students[i].isMale) + "</td>"
+                                + "<td> <button id=update" + students[i].id + " onclick=updateStudentData(students[" + i + "]) style='background-color:#2222dd;'>Edit</button><span id=cancelUpdate'+student[i].id'></span></td>"
+                                + "<td> <button id=" + students[i].id + " class='deletebtn glyphicon glyphicon-remove' style='background-color:#ee2222;'>Delete</button> </td></tr>"
+                        }
+
+                        textInput += "</table>"
+                        $("#table").html("<h2> Total no of students <span class='badge'>" + i + "</span> </h2>" + textInput)
+                        // $("#addButton").attr("disabled", false)
+
+                        for (var i = 0; i < students.length; i++) {
+                            $("#" + students[i].id).on('click', function () {
+                                var deleteStudent = confirm("Do you want really want to delete the selected student's data")
+                                if(deleteStudent){
+                                deleteStudentData(this.id)
+                                }
+                            });
+
+                        }
+                    }
+                })
+            }
+
+            function getGender(isMale) {
+                if (isMale)
+                    return "Male"
+                else
+                    return "Female"
+            }
+
+            function addStudent() {
+                console.log("student add processing")
+
+                var rollNo = $("#rollNo").val()
+                var name = $("#name").val()
+                var age = $("#age").val()
+                var email = $("#email").val()
+                var date = $("#date").val()
+                var gender = $("input[name='gender']:checked").val()
+                var isMale = false
+
+                if (gender == "male") {
+                    isMale = true
+                }
+
+                var student = new Student(rollNo, name, age, email, date, isMale)
+
+                if(rollNo!=0 && name!="" && age!=0 && email!="" && date!="")
+                    putData(student)
+                if(rollNo==0)
+                    $("#rollNo").css('borderColor','red')
+                if(name=="")
+                    $("#name").css('borderColor','red')
+                if(age==0)
+                    $("#age").css('borderColor','red')
+                if(email=="")
+                    $("#email").css('borderColor','red')
+                if(date=="")
+                    $("#date").css('borderColor','red')
+                
+            }
+
+            function putData(studentData) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students",
+                    data: studentData,
+                    success: function (data) {
+                        getStudentData()
+                    },
+
+                });
+            }
+
+            function deleteStudentData(studentID) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/" + studentID,
+
+                    success: function (data) {
+                        getStudentData()
+                    },
+                });
+            }
+
+            function updateStudentData(student){
+                $("#addButton").hide()
+                $('#update'+student.id).hide()
+                $("#updateButton").show()
+                $("#cancelUpdate").show()
+                console.log(student)
+                // $('#update'+student.id).css("background","cyan")
+                $("#rollNo").val(student.rollNo)
+                $("#name").val(student.name)
+                $("#age").val(student.age)
+                $("#email").val(student.email)
+                $("#date").val(student.date)
+                console.log(student.isMale)
+                if (student.isMale)
+                    $("#male").prop("checked", true)
+                else
+                    $("#female").prop("checked", true)
+                
+                $("#updateButton").html("<input style='background-color:yellow' type='button' value='Update' class='btn btn-primary' onclick=updateData('"+student.id+"')>")
+                $("#cancelUpdate").html("<input type='button' value='Cancel' class='btn btn-danger' onclick=cancelUpdate('"+student.id+"')>")
+
+            }
+
+            function updateData(currentStudentID){
+                $("#addButton").show()
+                
+                var rollNo = $("#rollNo").val()
+                var name = $("#name").val()
+                var age = $("#age").val()
+                var email = $("#email").val()
+                var date = $("#date").val()
+                var gender = $("input[name='gender']:checked").val()
+                var isMale = false
+
+                if (gender == "male") {
+                    isMale = true
+                }
+
+                var student = new Student(rollNo, name, age, email, date, isMale)
+
+                $.ajax({
+                    type: "PUT",
+                    url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/" + currentStudentID,
+                    data: student,
+                    success: function (data) {
+                        $("#updateButton").html("")
+                        getStudentData()
+                    },
+                });  
+            }
+
+                function cancelUpdate(currentStudentID){
+                    $("#addButton").show()
+                    $('#update' +currentStudentID).show()
+                    $('#updateButton').hide()
+                    $("#cancelUpdate").hide()
+                    // $('#update'+currentStudentID).css("background-color","#2222dd")
+                    // $("#updateButton").html("")
+                    // $("#cancelUpdate").html("")
+                    $("#rollNo").val("")
+                    $("#name").val("")
+                    $("#age").val("")
+                    $("#email").val("")
+                    $("#date").val("")
+                    $("#male").prop("checked", false)
+                    $("#female").prop("checked", false)
+                }
+            
+        </script>
+    </body>
+</html>
