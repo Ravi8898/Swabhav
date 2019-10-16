@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student</title>
+    </head>
+    <script src="angular.js"></script>
+    <body>
+        <div ng-app="detail">
+            <section ng-controller='studentController'>
+                <h1>{{student.rollNo+" "+student.name+" "+student.cgpi}}</h1>
+                <img ng-src={{student.profilePic}}>
+            </section>
+            </div>
+            <script>
+                var student=angular.module('detail',[]);
+                student.controller('studentController', function($scope) {
+                    $scope.student={
+                        profilePic: 'images//student.jpg',
+                        name: 'Ravi',
+                        rollNo: '36',
+                        cgpi: '8.2',
+                    }
+                })
+            </script>  
+    </body>
+</html>

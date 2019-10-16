@@ -7,7 +7,7 @@
                 border-collapse: collapse;
             }
             th, td {
-                padding: 5px;
+                /* padding: 5px; */
                 text-align: center;    
             }
         </style>
@@ -76,27 +76,25 @@
             getStudentData();
 
             function getStudentData() {
-                // $("#addButton").attr("disabled", true)
-                $("#table").html(" ")
-                
+
+                $("#table").html("")
                 var textInput = ""
                 $.ajax({
                     type: "GET",
-                    url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students", success: function (result) {
+                    url: "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students", 
+                    success: function (result) {
                         // document.getElementById("loading").style.display = "Loading"
                         students = result
                         console.log(students)
                         textInput += "<table id=tableArea class='table table-bordered'> <br> <tr> <th>Id</th> <th>RollNo</th> <th>Name</th> <th>Age</th> <th>Email</th> <th>Date</th> <th>Gender</th><th>Edit</th><th>delete</th></tr>"
                         for (var i = 0; i < students.length; i++) {
-                            textInput += "<tr><td>" + students[i].id + "</td><td>" + students[i].rollNo + "</td><td>" + students[i].name + "</td><td>" + students[i].age + "</td>"
+                            textInput += "<tr id=tr"+students[i].id+" ><td>" + students[i].id + "</td><td>" + students[i].rollNo + "</td><td>" + students[i].name + "</td><td>" + students[i].age + "</td>"
                                 + "<td>" + students[i].email + "</td><td>" + students[i].date + "</td><td>" + getGender(students[i].isMale) + "</td>"
-                                + "<td> <button id=update" + students[i].id + " onclick=updateStudentData(students[" + i + "]) style='background-color:#2222dd;'>Edit</button><span id=cancelUpdate'+student[i].id'></span></td>"
-                                + "<td> <button id=" + students[i].id + " class='deletebtn glyphicon glyphicon-remove' style='background-color:#ee2222;'>Delete</button> </td></tr>"
+                                + "<td> <button class='editbtn' id=update" + students[i].id + " onclick=updateStudentData(students[" + i + "]) style='background-color:#2222dd;'>Edit</button><span id=cancelUpdate"+students[i].id+"></span></td>"
+                                + "<td> <button id=" + students[i].id + " class='deletebtn' style='background-color:#ee2222;'>Delete</button> </td></tr>"
                         }
-
                         textInput += "</table>"
                         $("#table").html("<h2> Total no of students <span class='badge'>" + i + "</span> </h2>" + textInput)
-                        // $("#addButton").attr("disabled", false)
 
                         for (var i = 0; i < students.length; i++) {
                             $("#" + students[i].id).on('click', function () {
@@ -105,7 +103,6 @@
                                 deleteStudentData(this.id)
                                 }
                             });
-
                         }
                     }
                 })
@@ -173,30 +170,37 @@
                 });
             }
 
+            var editCounter=0
             function updateStudentData(student){
-                $("#addButton").hide()
-                $('#update'+student.id).hide()
-                $("#updateButton").show()
-                $("#cancelUpdate").show()
-                console.log(student)
-                // $('#update'+student.id).css("background","cyan")
-                $("#rollNo").val(student.rollNo)
-                $("#name").val(student.name)
-                $("#age").val(student.age)
-                $("#email").val(student.email)
-                $("#date").val(student.date)
-                console.log(student.isMale)
-                if (student.isMale)
-                    $("#male").prop("checked", true)
-                else
-                    $("#female").prop("checked", true)
-                
-                $("#updateButton").html("<input style='background-color:yellow' type='button' value='Update' class='btn btn-primary' onclick=updateData('"+student.id+"')>")
-                $("#cancelUpdate").html("<input type='button' value='Cancel' class='btn btn-danger' onclick=cancelUpdate('"+student.id+"')>")
+                if(editCounter==0){
+                    $('.editbtn').prop('disabled',true)
+                    $('.deletebtn').prop('disabled',true)
+                    $("#addButton").hide()
+                    $("#updateButton").show()
+                    $('#cancelUpdate'+student.id).show()
+                    $('#update'+student.id).hide()
+                    console.log(student)
 
+                    $('#tr'+student.id).css('background-color','#03ff03')
+                    $("#rollNo").val(student.rollNo)
+                    $("#name").val(student.name)
+                    $("#age").val(student.age)
+                    $("#email").val(student.email)
+                    $("#date").val(student.date)
+                    console.log(student.isMale)
+                    if (student.isMale)
+                        $("#male").prop("checked", true)
+                    else
+                        $("#female").prop("checked", true)
+                    
+                    $("#updateButton").html("<input style='background-color:yellow' type='button' value='Update' class='btn btn-primary' onclick=updateData('"+student.id+"')>")
+                    $('#cancelUpdate'+student.id).html("<input style='background-color:lightblue;' type='button' value='Cancel' class='btn btn-danger' onclick=cancelUpdate('"+student.id+"')>")
+                }
+                editCounter=1
             }
 
             function updateData(currentStudentID){
+                editCounter--
                 $("#addButton").show()
                 
                 var rollNo = $("#rollNo").val()
@@ -225,13 +229,15 @@
             }
 
                 function cancelUpdate(currentStudentID){
+                    editCounter--
+                    $('#tr'+currentStudentID).css('background-color','white')
+                    $('.editbtn').prop('disabled',false)
+                    $('.deletebtn').prop('disabled',false)
                     $("#addButton").show()
+                    $('#update'+currentStudentID).hide()
                     $('#update' +currentStudentID).show()
                     $('#updateButton').hide()
-                    $("#cancelUpdate").hide()
-                    // $('#update'+currentStudentID).css("background-color","#2222dd")
-                    // $("#updateButton").html("")
-                    // $("#cancelUpdate").html("")
+                    $('#cancelUpdate'+currentStudentID).hide()
                     $("#rollNo").val("")
                     $("#name").val("")
                     $("#age").val("")
