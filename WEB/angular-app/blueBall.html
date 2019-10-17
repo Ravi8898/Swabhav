@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="angular.js" ></script>
+    </head>
+    <title>BlueBallGame</title>
+    <body style="text-align: center; background-color:khaki ">  
+        <div ng-app="rulesApp" ng-controller="rulesController">
+            <div ng-show="ruleVisible">
+                <h1><i>Welcome to <font color="Blue">Blue Ball</font> Game</i></h1>
+                <h3>Hope you'll enjoy the Game</h3>
+                <h3><u><b>Rules</b></u></h3>
+                <ol style="text-align: left">
+                    <li><b>Please read the rules of game carefully...</b></li>                        
+                    <li><b>Press 'OK' to start the Game</b></li>
+                    </ol>
+                <ul style="text-align: left">
+                    <li>You have only 3 attempts to guess the Blue Ball</li>
+                    <li>If you guessed ball and the location of blueball is behind of that ball then that ball will become<font color="Green"> Green </font>color ball</li>
+                    <li>If you guessed ball and the location of blueball is ahead of that ball then that ball will become<font color="Red"> Red</font> color ball</li>
+                    <li>If you guessed the right ball then you'll win the game</li>
+                </ul>
+                <input type="button" value="OK" ng-click="ShowHide();"/>
+            </div>
+    
+            <div ng-show="IsVisible" ng-controller="numBtn">
+                
+                <div style="visibility:visible " id="play">      
+                    <p style="text-align: right"> Attempts: <span id="attempt">{{$scope.attempts}}</span></p>
+                    <p style="text-align: left">Time taken: <span id="timer"></span></p>
+                    <button style="text-align: center; font-size:20px;cursor:pointer " class="button1 setButton" id="restart">Restart</button><p></p>
+                    <div id="demo1" >
+                       
+                        <span ng-init="buttons" ng-repeat="x in buttons">
+                        <button id='button{{x}}'>{{x}}</button></span>
+                    
+                    </div>
+                    <p id="resultDisp"></p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            var app = angular.module('rulesApp',[]);
+            app.controller('rulesController',function($scope){
+                $scope.ruleVisible=true;
+                $scope.IsVisible=false;
+        
+                $scope.ShowHide=function(){
+                    $scope.ruleVisible=false;
+                    $scope.IsVisible=true;
+                }
+                });
+
+            
+            app.controller('numBtn', function($scope) {
+                $scope.buttons = [];
+                $scope.attempts=3
+                for(var count=1; count<=50; count++){
+                $scope.buttons.push(count);
+                }
+                console.log()
+                
+            });
+
+            
+        </script>
+    </body>

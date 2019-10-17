@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Module Pattern</title>
+    </head>
+    <body>
+        <h2 id="demo"></h2>
+        <script>
+            var student=(function () {
+                name:'Ravi';
+                id:10
+                return {
+                    cgpi:8.2,
+                    standard:12
+                }
+            })();
+            document.getElementById("demo").innerHTML=student.name+" "+student.standard
+            console.log(student.name); 
+            console.log(student.standard); 
+        </script>
+    </body>
+</html>

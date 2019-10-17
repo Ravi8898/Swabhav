@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Constuctor Pattern</title>
+    </head>
+    <body>
+        <p id="demo"></p>
+        
+        <script>
+            function Student(first, last, age, cgpi) {
+            this.firstName = first;
+            this.lastName = last;
+            this.age = age;
+            this.cgpi = cgpi;
+            }
+            var ravi = new Student("Ravi", "Maurya", 23, 8.2);
+            document.getElementById("demo").innerHTML ="Ravi's age is " + ravi.age + "."; 
+        </script>
+    </body>
+</html>

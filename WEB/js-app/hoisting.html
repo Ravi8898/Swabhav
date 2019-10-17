@@ -2,13 +2,14 @@
 <html>
     <h2>Hoisting</h2>
     <p id="demo"></p>
+    <p id="demo1"></p>
     <body>
         <script>
-            console.log(hoisting);
+            // console.log(hoisting);
             var hoisting="this is hoisting.";
         function hoist() {
             a = 20;
-            var b = 100;
+            b = 100;
           }
           
           hoist();
@@ -16,7 +17,7 @@
           document.getElementById("demo").innerHTML=a;
           console.log(a);
           
-          document.getElementById("demo").innerHTML=b;
+          document.getElementById("demo1").innerHTML=b;
           console.log(b); 
         </script>
     </body>
