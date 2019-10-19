@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Binding</title>
+    </head>
+    <script src="angular.js"></script>
+    <body>
+        <div ng-app="detail" ng-controller="studentController">
+            <fieldset class="scheduler-border">
+                    <h1>One Time Binding</h1>
+                    <label>ID:</label><input value='{{::student.id}}'>
+            </fieldset>
+            <fieldset class="scheduler-border">
+                <h1>One Way Binding</h1>
+                <label>ID:</label><b ng-bind='student.id'></b>
+            </fieldset>
+            <fieldset class="scheduler-border">
+                    <h1>Two Way Binding</h1>
+                    <label>ID:</label><input ng-model='student.id'>
+            </fieldset>
+
+        <script>
+        
+            var student=angular.module('detail',[]);
+            student.controller('studentController', function($scope) {
+                $scope.IsVisible=false
+                $scope.IsAllVisible=false
+                $scope.student={
+                    id:101,
+                    firstName: 'Ravi',
+                    lastName: 'Maurya'
+                   
+                }
+            });
+
+        </script>
+    </body>
+</html>

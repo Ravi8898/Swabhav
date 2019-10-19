@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>One Way Binding</title>
+    </head>
+    <script src="angular.js"></script>
+    <body>
+        <div ng-app="detail">
+            <section ng-controller='studentController'>
+                <div>
+                    <p ng-bind="firstName"></p>
+                    <p ng-bind="lastName"></p>
+                    
+                </div>
+                <label>First Name:</label><input type="text" value='{{firstName}}'>
+                <label>Last Name:</label><input type="text" value='{{lastName}}'>
+            </section>
+        </div>
+
+        <script>
+             var student=angular.module('detail',[]);
+                student.controller('studentController', function($scope) {
+                 
+                        $scope.firstName= 'Ravi',
+                        $scope.lastName= 'Maurya'
+                    
+                });
+        </script>
+    </body>
+</html>

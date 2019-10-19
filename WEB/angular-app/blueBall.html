@@ -4,8 +4,43 @@
         <script src="angular.js" ></script>
     </head>
     <title>BlueBallGame</title>
+
+    <style type="text/css">
+
+        .btn.red{
+          background-color:red;
+          border-radius:50%;
+          font-size: 30px;
+        }
+        .btn.blue{
+          background-color:blue;
+          border-radius:50%;
+          font-size: 30px;
+        }
+        .btn.green{
+            background-color:green;
+            border-radius:50%;
+            font-size: 30px;
+        }
+        .gray{
+            /* background-color:gray; */
+            border-radius:50%;
+            font-size: 30px;
+        }
+        .btn { 
+            /* background-color: gray;  */
+            /* border: none;  */
+            cursor: pointer;
+            border-radius:50%;
+            font-size:30px
+            /* display: inline-block;  */
+            /* margin-right: 10px;  */
+        }
+        .btn.active { background-color: white; }
+      
+    </style>
     <body style="text-align: center; background-color:khaki ">  
-        <div ng-app="rulesApp" ng-controller="rulesController">
+        <div ng-app="rulesApp" ng-controller="numBtn">
             <div ng-show="ruleVisible">
                 <h1><i>Welcome to <font color="Blue">Blue Ball</font> Game</i></h1>
                 <h3>Hope you'll enjoy the Game</h3>
@@ -23,47 +58,86 @@
                 <input type="button" value="OK" ng-click="ShowHide();"/>
             </div>
     
-            <div ng-show="IsVisible" ng-controller="numBtn">
+            <!-- <div ng-show="IsVisible" ng-controller="numBtn"> -->
                 
-                <div style="visibility:visible " id="play">      
-                    <p style="text-align: right"> Attempts: <span id="attempt">{{$scope.attempts}}</span></p>
-                    <p style="text-align: left">Time taken: <span id="timer"></span></p>
-                    <button style="text-align: center; font-size:20px;cursor:pointer " class="button1 setButton" id="restart">Restart</button><p></p>
+                <div ng-show="IsVisible" style="visibility:visible " id="play">      
+                    <p style="text-align: right"> Attempts: <span id="attempt">{{attempts}}</span></p>
+                    <p style="text-align: left">Time taken: <span id="timer">{{timeTaken}}</span></p>
+                    <button style="text-align: center; font-size:20px;cursor:pointer " class="button1 setButton" id="restart" ng-click="ShowHide();">Restart</button><p></p>
                     <div id="demo1" >
                        
-                        <span ng-init="buttons" ng-repeat="x in buttons">
-                        <button id='button{{x}}'>{{x}}</button></span>
+                        <span ng-repeat="button in buttons">
+                        <button class='btn' ng-class="{ 'blue' : (activeBtn === button.value && activeBtn === blueButton), 'green' : (activeBtn === button.value && activeBtn > blueButton), 'red' : (activeBtn === button.value && activeBtn < blueButton)}" ng-disabled=dsblBtn id='{{button.id}}' ng-click="colorButton(button.value);" >{{button.value}}</button></span>
                     
                     </div>
-                    <p id="resultDisp"></p>
+                    <p id="resultDisp">{{result}}</p>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
 
         <script>
 
             var app = angular.module('rulesApp',[]);
-            app.controller('rulesController',function($scope){
+            app.controller('numBtn', function($scope, $timeout) {
+
                 $scope.ruleVisible=true;
                 $scope.IsVisible=false;
-        
+                $scope.today = undefined;
+                $scope.time=undefined
                 $scope.ShowHide=function(){
+                    timer=$scope.blueButton=Math.floor((Math.random()*50)+1)
+                    console.log($scope.blueButton)
+                    $scope.result=undefined
+                    $scope.timeTaken=undefined
+                    $scope.dsblBtn = false;
+                    $scope.attempts=3
+                    $timeout(function(){ $scope.callAtTimeout(); }, 5000);
+                    $scope.today = new Date();
+                    $scope.time=$scope.today.getTime()
                     $scope.ruleVisible=false;
                     $scope.IsVisible=true;
                 }
-                });
 
-            
-            app.controller('numBtn', function($scope) {
                 $scope.buttons = [];
-                $scope.attempts=3
-                for(var count=1; count<=50; count++){
-                $scope.buttons.push(count);
+                $scope.colorData={
+                    "background-color":"gray",
+                    "border-radius":"50%",
+                    "font-size":"30px"
                 }
-                console.log()
+               
+                for(var count=1; count<=50; count++){
+                    $scope.buttons.push({ id: 'btn'+count, value: count },);
+                }
+
+                $scope.activeBtn = undefined;
+                console.log($scope.buttons)
+                $scope.colorButton=function(value){
+                   
+                    $scope.activeBtn = value;
+                    $scope.attempts--
+                    if($scope.attempts==0){
+                        $scope.dsblBtn = true;
+                        $timeout.cancel(timer);
+                        $scope.result='Game Over...!!!'
+                        $scope.timeTaken=(new Date().getTime()-$scope.time)/1000
+                    }
+                    if($scope.blueButton==$scope.activeBtn){
+                        $timeout.cancel(timer);
+                        $scope.result='You Won...!!!'
+                        $scope.dsblBtn = true;
+                        $scope.timeTaken=(new Date().getTime()-$scope.time)/1000
+                    }
+                }
+
+                $scope.callAtTimeout=function() {
+                    // if($scope.result!='Game Over...!!!' && $scope.result!='You Won...!!!')
+                    $scope.result='Time Out...!!!'
+                    $scope.dsblBtn = true;
+                }
+                
+                // console.log(buttons)
                 
             });
-
-            
+   
         </script>
     </body>
