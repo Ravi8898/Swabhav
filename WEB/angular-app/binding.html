@@ -3,22 +3,15 @@
     <head>
         <title>Binding of Text</title>
     </head>
-    <style>
-        .changeColor {
-            color:blue;
-        }
-        .changeSize {
-        font-size:30px;
-        }
-    </style>
     <script src="angular.js"></script>
+    
     <body>
         <div ng-app='detail' ng-controller='textController'>
             <label>Text:</label><input ng-model='text.inputText'><br><br>
             <label>Font Size:</label><input type="number" ng-model='text.size'><br><br>
             <label>Text Background Color:</label><select ng-change='changeBgColor()' ng-model='text.backColor' ng-options='color.name for color in colors'></select><br><br>
             <label>Font Color:</label><select ng-change='changeFontColor()' ng-model='text.textColor' ng-options='color.name for color in colors'></select><br><br>
-            <label ng-bind='text.inputText' ng-style="{'font-color': '#ff0303', 'background-color': text.backColor, 'font-size': text.size+'px'}"></label>
+            <label ng-bind='text.inputText' ng-style="{'color': textcolor, 'background-color': backcolor, 'font-size': text.size+'px'}"></label>
         </div>
 
         <script>
@@ -36,18 +29,21 @@
                 $scope.text={
                     inputText:"",
                     size:'',
-                    backColor:'',
-                    textColor:''
-                    }
-
-                $scope.text.backColor=$scope.colors[0].name
+                    backColor:$scope.colors[0],
+                    textColor:$scope.colors[0]
+                  
+                }
+               
                 $scope.changeBgColor=function(){
                     console.log($scope.text.backColor.value)
-                    $scope.text.backColor=$scope.text.backColor.value
+                    $scope.backcolor=$scope.text.backColor.value
+                }
+                $scope.changeFontColor=function(){
+                    console.log($scope.text.textColor.value)
+                    $scope.textcolor=$scope.text.textColor.value
                 }
                     
             });
-
 
         </script>
     </body>

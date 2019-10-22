@@ -72,10 +72,14 @@
                     if(attemps>0 && timeTaken<timeLimit ){
                         attemps--
                         $("#attempt").html(attemps)
-                        if(buttonNumber>blueButton)
+                        if(buttonNumber>blueButton){
                         $(this).css('background-color','green')
-                        else if(buttonNumber<blueButton)
+                        $(this).prop('disabled', true)
+                        }
+                        else if(buttonNumber<blueButton){
                         $(this).css('background-color','red')
+                        $(this).prop('disabled', true)
+                        }
                         else if(buttonNumber==blueButton){
                         $(this).css('background-color','blue')
                         console.log(buttonNumber)

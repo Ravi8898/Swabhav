@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NumbersAPI </title>
+        <script src="angular.js" ></script>
+
+    </head>
+    <body>
+        <div style="background-color: khaki;" ng-app="detail" ng-controller="numberController">
+            <fieldset class="scheduler-border">
+                <h1>Welcome to NumbersApi</h1>
+                <label>Enter a Number: </label><input type="number" ng-model='numbers'><br>
+                <button ng-disabled='dsbldBtn' ng-click='getFacts()'>Find Facts</button>
+            </fieldset>
+            <fieldset class="scheduler-border">
+                <div align="center" ng-show="ShowLoader">
+                    <br>Loading. Please wait.<br>
+                    <img src="images/spinner.gif" alt="Loading. Please wait." />
+                    
+                </div>
+                <p style="color: red;" ng-show="errMsg">Something went wrong...Please Check your Internet Connection...!!!</p>
+                <!-- <div class="spinner" ng-show="loading"></div> -->
+                <p ng-bind='factDisp'><br></p>
+                
+            </fieldset>
+            
+        </div>
+
+        <script>
+           
+            var numberMod=angular.module('detail',[]);
+            numberMod.controller('numberController', function($scope, $http) {
+                $scope.errMsg=false
+                $scope.ShowLoader = false
+                $scope.numbers=
+                $scope.factDisp=''
+                // $scope.errMsg='Some error has occured'
+                $scope.getFacts=function(){
+                    $scope.errMsg=false
+                    $scope.ShowLoader = true
+                    $scope.dsbldBtn=true
+                    // $scope.buttonshow=true
+                    $http.get(`http://numbersapi.com/${$scope.numbers}`)
+                    .then(function(response){
+                        $scope.factDisp=$scope.factDisp+response.data
+                        $scope.ShowLoader = false
+                        $scope.dsbldBtn=false
+                        // $scope.buttonshow=true
+                        console.log($scope.factDisp)
+                        console.log(response.data)
+                    })
+                    .catch(function () { 
+                        $scope.ShowLoader = false
+                        $scope.errMsg=true
+                        $scope.dsbldBtn=false
+                        console.log('Some error has occured'); 
+                    }) 
+                }
+                console.log('end of Script')  
+            })
+            
+        </script>
+    </body>
+</html>
