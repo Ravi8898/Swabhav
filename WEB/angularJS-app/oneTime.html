@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>One Time Binding</title>
+    </head>
+    <script src="angular.js"></script>
+    <body>
+        <div ng-app="detail">
+            <section ng-controller='studentController'>
+                <div>
+                    <p>{{::name}}</p>
+                    <p>{{name}}</p>
+                    
+                </div>
+                <label>First Name:</label><input value='{{::name}}'><br>
+                <label>Last Name:</label><input value='{{name}}'><br>
+                <button ng-click="change($event)">Change</button>
+            </section>
+        </div>
+
+        <script>
+             var student=angular.module('detail',[]);
+                student.controller('studentController', function($scope) {
+                    var counter=0
+                    var nameList=['Ravi','Akash','Floyd']
+                    // $scope.firstName= 'Ravi',
+                    // $scope.lastName= 'Maurya'
+
+                    $scope.change = function(clickEvent) {
+                        $scope.name = nameList[counter % nameList.length];
+                        counter++;
+                    };
+              
+                    
+                });
+
+                
+        </script>
+    </body>
+</html>

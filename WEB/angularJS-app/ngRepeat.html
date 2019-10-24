@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>ngRepeat Directives</title>
+        </head>
+        <script src="angular.js"></script>
+
+        <body>
+        <div ng-app="myApp">
+            <section ng-controller="myCtrl">
+            <p ng-repeat="name in students">{{name}}</p>
+            </section>
+        </div>
+        <script>
+            var app = angular.module("myApp", []);
+            app.controller("myCtrl", function($scope) {
+            $scope.students = [
+                "Ravi",
+                "Sunny",
+                "Akash",
+                "Floyd",
+                "Nilam"
+            ]
+            });
+            
+        </script>
+
+        </body>
+    </html>
