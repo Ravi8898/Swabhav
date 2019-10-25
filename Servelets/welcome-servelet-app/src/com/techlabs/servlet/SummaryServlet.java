@@ -3,23 +3,25 @@ package com.techlabs.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class AuthServlet
+ * Servlet implementation class SummaryServlet
  */
-@WebServlet("/auth")
-public class AuthServlet extends HttpServlet {
+@WebServlet("/summary")
+public class SummaryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AuthServlet() {
+    public SummaryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,16 +31,13 @@ public class AuthServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String userName=request.getParameter("Username");
-		String password=request.getParameter("Password");
-		PrintWriter out = response.getWriter();
 		String docType = "<!doctype html\">\n";
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		ServletContext application = getServletConfig().getServletContext();
 		
-		if(userName.equals("admin") && password.equals("admin"))
-            out.print(docType+"<html>\n"+"<body\">\n" +"Authentication successfull...!!! <br> "+ "Hello "+userName+"</body></html>");
-        else
-            out.println("Please check your Username and password and try again <br> <a href='login.html'>Try again</a>");
-            
+		out.println(docType + "<html>\n" + "<body\">\n"+"<p> Session counter value is:"
+				+ session.getAttribute("counter") + "</p>" + "<p> Application counter value is: " + application.getAttribute("counter") + "</p>"+"</body></html>");
 	}
 
 	/**
@@ -46,7 +45,7 @@ public class AuthServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request,response);
+		doGet(request, response);
 	}
 
 }

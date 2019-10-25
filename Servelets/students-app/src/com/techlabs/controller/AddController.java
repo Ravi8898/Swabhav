@@ -1,25 +1,25 @@
-package com.techlabs.servlet;
+package com.techlabs.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.techlabs.model.Student;
+
 /**
- * Servlet implementation class AuthServlet
+ * Servlet implementation class AddController
  */
-@WebServlet("/auth")
-public class AuthServlet extends HttpServlet {
+@WebServlet("/add")
+public class AddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AuthServlet() {
+    public AddController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,25 +28,23 @@ public class AuthServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String userName=request.getParameter("Username");
-		String password=request.getParameter("Password");
-		PrintWriter out = response.getWriter();
-		String docType = "<!doctype html\">\n";
+		System.out.println("Inside AddController doGet");
+		String name=request.getParameter("Name");
+		double cgpi=Double.parseDouble(request.getParameter("Cgpi"));
+		Student student=new Student(name, cgpi);
+		StudentService studentService=new StudentService();
+		studentService.add(student);
 		
-		if(userName.equals("admin") && password.equals("admin"))
-            out.print(docType+"<html>\n"+"<body\">\n" +"Authentication successfull...!!! <br> "+ "Hello "+userName+"</body></html>");
-        else
-            out.println("Please check your Username and password and try again <br> <a href='login.html'>Try again</a>");
-            
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request,response);
+		System.out.println("Inside AddController doPost");
+		doGet(request, response);
+		response.sendRedirect("/students-app/students");
+//		redi
 	}
 
 }

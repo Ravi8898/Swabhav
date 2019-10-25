@@ -46,7 +46,7 @@ public class SessionServlet extends HttpServlet {
 		session.setAttribute("counter", count);
 
 		out.println(docType + "<html>\n" + "<body\">\n" + "<p>" + "Session ID:" + session.getId() + "</p>" + "<p> Old:"
-				+ oldCount + "</p>" + "<p> New:" + count + "</p>");
+				+ oldCount + "</p>" + "<p> New:" + count + "</p>"+"</body></html>");
 	}
 
 	/**

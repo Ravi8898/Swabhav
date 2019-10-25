@@ -1,1 +1,73 @@
 <!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Prime Number
+        </title>
+    </head>
+    <script src="angular.js"></script>
+    <body ng-app='detail' ng-model='number' ng-controller='numberController' ng-style="myObj">
+        <h2>Enter any number to find whether the number is prime or not...!!!</h2>
+        <div>
+            <label>Number:</label><input type="number" ng-model='number' ng-change='checkPrimeNum()'><br><br>
+            <button ng-click='dispResult()'>CheckPrime</button><br><br>
+            <label ng-bind='results'></label>
+            
+            <!-- <label ng-bind='number' ng-style="{'color': textcolor, 'background-color': backcolor, 'font-size': text.size+'px'}"></label> -->
+        </div>
+
+        <script>
+            var number=angular.module('detail',[]);
+            number.controller('numberController', function($scope) {
+
+                $scope.myObj = {
+                    "background-color" : "white"
+                }
+                $scope.number=""
+                $scope.result=""
+                $scope.results=""
+                $scope.backColor=""
+                $scope.checkPrimeNum=function(){
+                    $scope.results=""
+                    console.log($scope.number)
+                    if ($scope.number <= 1) 
+                        $scope.result="Can't find for this number"
+                    else if ($scope.number == 2) 
+                        $scope.result="Prime Number"
+                    else if ($scope.number == 3) 
+                        $scope.result="Prime Number"
+                    else{
+                        for (var i = 2; i <= $scope.number/2; i++){
+                            if ($scope.number % i == 0){ 
+                                $scope.result="Not a Prime Number"
+                                break;
+                            } 
+                            else
+                                $scope.result="Prime Number"
+                        }
+                    }
+                    if($scope.result==="Prime Number"){
+                        $scope.myObj = {
+                            "background-color" : "#03ff03"
+                        }
+                    }
+                    else if($scope.result==="Not a Prime Number"){
+                        $scope.myObj = {
+                            "background-color" : "#ff0303"
+                        }
+                    }
+                    else 
+                        $scope.myObj = {
+                            "background-color" : "white"
+                        }
+                    
+                }
+                $scope.dispResult=function(){
+                    $scope.results=$scope.result
+                }
+                
+            });
+        
+        </script>
+    </body>
+</html>
