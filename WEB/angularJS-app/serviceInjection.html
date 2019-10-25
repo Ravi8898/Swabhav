@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Service Injection</title>
+    </head>
+    <script src="angular.js"></script>
+    <body ng-app="module1">
+        <h3>This is for Service Injection</h3>
+        <div ng-controller="conA"></div>
+        <div ng-controller="conB"></div>
+        <script>
+            var mod=angular.module('module1',[])
+            mod.factory('factoryA',function(){
+                var name="Ravi"
+                return name
+            })
+            mod.controller('conA',function($scope,factoryA){
+                $scope.studentName=factoryA
+                console.log($scope.studentName)
+            })
+
+            mod.controller('conB',function($scope,factoryA){
+                $scope.studentName=factoryA
+                console.log($scope.studentName)
+            })
+        </script>
+    </body>
+</html>
