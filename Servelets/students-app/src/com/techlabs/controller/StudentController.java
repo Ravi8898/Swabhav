@@ -34,12 +34,12 @@ public class StudentController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("Inside Student Controller");
-		StudentService studentService=new StudentService();
-		List<Student> students=studentService.get();
+		StudentService studentService = StudentService.getInstance();
+		List<Student> students = studentService.get();
 		System.out.println(students.size());
-		request.setAttribute("studentList",students);
-		
-		RequestDispatcher view=request.getRequestDispatcher("students.jsp");
+		request.setAttribute("studentList", students);
+
+		RequestDispatcher view = request.getRequestDispatcher("students.jsp");
 		view.forward(request, response);
 	}
 

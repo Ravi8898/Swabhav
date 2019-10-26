@@ -1,9 +1,6 @@
 package com.techlabs.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.techlabs.model.Student;
 
 /**
- * Servlet implementation class AddController
+ * Servlet implementation class EditController
  */
-@WebServlet("/add")
-public class AddController extends HttpServlet {
+@WebServlet("/edit")
+public class EditController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddController() {
+	public EditController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,8 +32,33 @@ public class AddController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("Inside AddController doGet");
+		// TODO Auto-generated method stub
+		System.out.println("Inside Edit Controller\n ");
+		int studentId = Integer.parseInt(request.getParameter("id"));
+		System.out.println(request.getParameter("id"));
+
+		StudentService studentService = StudentService.getInstance();
+		Student student = studentService.get(studentId);
+		String studentName = student.getName();
+		double studentCgpi = student.getCgpi();
 		
+		request.setAttribute("setName", studentName);
+		request.setAttribute("setCgpi", studentCgpi);
+		request.setAttribute("studentID", studentId);
+		
+		RequestDispatcher view1 = request.getRequestDispatcher("edit.jsp");
+		view1.forward(request, response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		int studentId = Integer.parseInt(request.getParameter("id"));
 		String studentName = request.getParameter("Name");
 		String studentCgpi = request.getParameter("Cgpi");
 		System.out.println(!studentName.equals(null) && !studentName.equals(""));
@@ -48,7 +70,8 @@ public class AddController extends HttpServlet {
 			
 			Student student = new Student(name, cgpi);
 			StudentService studentService = StudentService.getInstance();
-			studentService.add(student);
+			
+			studentService.edit(studentId, student);
 			response.sendRedirect("/students-app/students");
 		}
 		
@@ -59,26 +82,12 @@ public class AddController extends HttpServlet {
 			request.setAttribute("errorLabel", errMsg);
 			request.setAttribute("setName", studentName);
 			request.setAttribute("setCgpi", studentCgpi);
-			RequestDispatcher view=request.getRequestDispatcher("add.jsp");
+			RequestDispatcher view=request.getRequestDispatcher("edit.jsp");
 			view.forward(request, response);
 			
 			
 		}
-
-		
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("Inside AddController doPost");
-		doGet(request, response);
-		
-//		redi
+//		doGet(request, response);
 	}
 
 }

@@ -35,6 +35,7 @@ public class WelcomeServlet extends HttpServlet {
 		System.out.println("Inside GET");
 		String name = request.getParameter("developer");
 		PrintWriter out = response.getWriter();
+		
 		String docType = "<!doctype html\">\n";
 		if (name.equals(""))
 			for (int i = 0; i < 5; i++)

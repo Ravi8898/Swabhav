@@ -14,10 +14,12 @@
 		List<Student> students = (List) request.getAttribute("studentList");
 
 		for (Student student : students) {
-			out.print("<br>ID: " + student.getStudentID() + " Name: " + student.getName() + " CGPI: " + student.getCgpi());
+			out.print("<br>ID: " + student.getStudentID() + " Name: " + student.getName() + " CGPI: "
+					+ student.getCgpi()+"<a href='edit?id="+student.getStudentID()+"'>Edit</a>");
 		}
 	%>
-	<br><br>
+	<br>
+	<br>
 	<a href="http://localhost:8080/students-app/add.jsp">ClickToAddStudents</a>
 </body>
 </html>
