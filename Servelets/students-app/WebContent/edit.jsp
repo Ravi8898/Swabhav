@@ -10,7 +10,7 @@
 	<%
 		String validate = (String) request.getAttribute("errorLabel");
 		String setName = (String) request.getAttribute("setName");
-		double setCgpi = (double)request.getAttribute("setCgpi");
+		String setCgpi = (String)request.getAttribute("setCgpi");
 		int studentId=(Integer) request.getAttribute("studentID");
 		
 		if (validate == null)

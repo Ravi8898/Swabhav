@@ -15,7 +15,7 @@
 
 		for (Student student : students) {
 			out.print("<br>ID: " + student.getStudentID() + " Name: " + student.getName() + " CGPI: "
-					+ student.getCgpi()+"<a href='edit?id="+student.getStudentID()+"'>Edit</a>");
+					+ student.getCgpi()+"<a href='edit?id="+student.getStudentID()+"'>Edit</a> "+" <a href='delete?id="+student.getStudentID()+"'>Delete</a>");
 		}
 	%>
 	<br>

@@ -55,4 +55,9 @@ public class StudentService {
 		oldStudent.setName(student.getName());
 		oldStudent.setCgpi(student.getCgpi());
 	}
+	
+	public void remove(int id) {
+//		Student oldStudent=get(id);
+		studentList.remove(get(id));
+	}
 }

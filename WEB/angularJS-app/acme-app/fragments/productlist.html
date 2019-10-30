@@ -1,0 +1,43 @@
+<br>
+<div class="container">
+    <div class="welcomediv">&nbsp;&nbsp;&nbsp;Product List</div>
+    <div class="jumbotron" id="myjmbotron">
+        <div>
+            <div class="row">
+                <div class="col-sm-3">Filter: </div> <input type='text' ng-model='searchText' placeholder="Search... "
+                    id="search" />
+            </div>
+            <div class="row">
+                <h3>Filtered By: {{searchText}}</h3>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><button class="btn btn-primary" id="hideShow"
+                                ng-click="showHide()">{{hideShow_image}}</button></th>
+                        <th>Product</th>
+                        <th>Code</th>
+                        <th>Available</th>
+                        <th>Price</th>
+                        <th>5 Star Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="product in productslist  | filter : searchText">
+                        <td class=""><img ng-src="{{product.imageUrl}}" ng-show="isVisible"></td>
+                        <td><a href="#!productdetails/{{product.productCode}}">{{product.productName}}</a></td>
+                        <td>{{product.productCode}}</td>
+                        <td>{{product.releaseDate}}</td>
+                        <td>{{"$"+product.price}}</td>
+                        <td>
+                            <span class="stars alignleft">
+                                <!-- <span ng-style="{ 'width': getStars(product.starRating) }"></span> -->
+                                <aurionPro-rating rating="{{product.starRating}}" read-only="readOnly" ></aurionPro-rating>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

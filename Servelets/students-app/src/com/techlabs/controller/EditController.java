@@ -39,15 +39,13 @@ public class EditController extends HttpServlet {
 
 		StudentService studentService = StudentService.getInstance();
 		Student student = studentService.get(studentId);
-		String studentName = student.getName();
-		double studentCgpi = student.getCgpi();
-		
-		request.setAttribute("setName", studentName);
-		request.setAttribute("setCgpi", studentCgpi);
+
+		request.setAttribute("setName", student.getName());
+		request.setAttribute("setCgpi", "" + student.getCgpi());
 		request.setAttribute("studentID", studentId);
-		
-		RequestDispatcher view1 = request.getRequestDispatcher("edit.jsp");
-		view1.forward(request, response);
+
+		RequestDispatcher view = request.getRequestDispatcher("edit.jsp");
+		view.forward(request, response);
 
 	}
 
@@ -57,37 +55,39 @@ public class EditController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		int studentId = Integer.parseInt(request.getParameter("id"));
 		String studentName = request.getParameter("Name");
 		String studentCgpi = request.getParameter("Cgpi");
 		System.out.println(!studentName.equals(null) && !studentName.equals(""));
-		
-		if((!studentName.equals(null) && !studentName.equals("")) && (!studentCgpi.equals(null) && !studentCgpi.equals(""))) {
-			System.out.println(studentName+","+studentCgpi);
+
+		if ((!studentName.equals(null) && !studentName.equals(""))
+				&& (!studentCgpi.equals(null) && !studentCgpi.equals(""))) {
+			System.out.println(studentName + "," + studentCgpi);
+
 			String name = request.getParameter("Name");
 			double cgpi = Double.parseDouble(request.getParameter("Cgpi"));
-			
+
 			Student student = new Student(name, cgpi);
 			StudentService studentService = StudentService.getInstance();
-			
+
 			studentService.edit(studentId, student);
 			response.sendRedirect("/students-app/students");
 		}
-		
+
 		else {
 			System.out.println("this is Else");
-//			response.sendRedirect("/students-app/add.jsp");
-			String errMsg="* All Fields are Mandatory...!!!";
+
+			String errMsg = "* All Fields are Mandatory...!!!";
 			request.setAttribute("errorLabel", errMsg);
+			request.setAttribute("studentID", studentId);
 			request.setAttribute("setName", studentName);
 			request.setAttribute("setCgpi", studentCgpi);
-			RequestDispatcher view=request.getRequestDispatcher("edit.jsp");
+
+			RequestDispatcher view = request.getRequestDispatcher("edit.jsp");
 			view.forward(request, response);
-			
-			
+
 		}
-//		doGet(request, response);
 	}
 
 }

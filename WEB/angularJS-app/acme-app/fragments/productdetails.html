@@ -1,0 +1,59 @@
+<br>
+<div class="container">
+    <div class="welcomediv">&nbsp;&nbsp;&nbsp;Product Detail: {{Singleproduct.productName}}</div>
+    <div class="jumbotron" id="myjmbotron">
+        <div class="completeBox" style="height:250px;" id="completeBox">
+            <div class="col-sm-6 desc" style="height:100%;" id="desc">
+                <table class="productDescTable" style="width:100%;">
+                    <thead>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>{{Singleproduct.productName}}</td>
+                        </tr>
+                        <tr>
+                            <td>code</td>
+                            <td>{{Singleproduct.productCode}}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{{Singleproduct.description}}</td>
+                        </tr>
+                        <tr>
+                            <td>Availability</td>
+                            <td>{{Singleproduct.releaseDate}}</td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td>{{Singleproduct.price}}</td>
+                        </tr>
+
+                        <tr>
+                            <td>5 Star Rating</td>
+                            <td>
+                                <span class="stars alignleft">
+                                    <!-- <span ng-style="{'width': getStars(Singleproduct.starRating)}"></span> -->
+                                    <aurionPro-rating rating="{{product.starRating}}" read-only="readOnly" ></aurionPro-rating>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-sm-6 imgdesc" style="height:100%" id="imgdesc">
+                <img ng-src="{{Singleproduct.imageUrl}}" alt="{{Singleproduct.productName}}" style="height:250px">
+
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-chevron-left"></span> <a href="#!productlist">Back</a>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
