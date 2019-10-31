@@ -34,9 +34,10 @@
                         <tr>
                             <td>5 Star Rating</td>
                             <td>
-                                <span class="stars alignleft">
-                                    <!-- <span ng-style="{'width': getStars(Singleproduct.starRating)}"></span> -->
-                                    <aurionPro-rating rating="{{product.starRating}}" read-only="readOnly" ></aurionPro-rating>
+                                <span ng-repeat="rating in ratings">
+                                    <!-- <span ng-style="{ 'width': getStars(product.starRating) }"></span> -->
+
+                                    <div star-rating rating-value="product.starRating" max="ratings.max"></div>
                                 </span>
                             </td>
                         </tr>

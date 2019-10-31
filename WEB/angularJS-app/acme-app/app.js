@@ -20,27 +20,6 @@ module1.factory('productDataService', ["$http", "$routeParams", function ($http,
     return service
 }])
 
-module1.directive('starRating',function () {
-
-        return {
-            template: '<ul class="starRating">' + '  <li ng-repeat="star in stars" ng-class="star" >'+ '</li>' + '</ul>',
-            scope: {
-                ratingValue: '=',
-                max: '=',
-            },
-
-            link: function (scope, elem, attrs) {
-                var updateRating = function () {
-                    scope.stars = [];
-                    for (var i = 0; i < scope.max; i++) {
-                        scope.stars.push({
-                            filled: i < scope.ratingValue
-                        })
-                    }
-                }
-            }
-        }
-    });
 
 
 
@@ -81,6 +60,9 @@ module1.controller("productdetailsController", ["$scope", "productDataService", 
             console.log(product)
             $scope.productslist = product.data
             $scope.Singleproduct = productDataService.getSingleProduct($scope.productslist)
+            $scope.starRatings = [{
+                max:5
+            }];
 
         })
 
@@ -93,7 +75,7 @@ module1.controller("productdetailsController", ["$scope", "productDataService", 
 }])
 
 module1.controller("productlistController", ["$scope", "productDataService", function ($scope, productDataService) {
-    $scope.starRating = 5;
+    
     $scope.isVisible = true
     $scope.hideShow_image = "Hide Image"
 
@@ -101,8 +83,13 @@ module1.controller("productlistController", ["$scope", "productDataService", fun
         .then(function (product) {
             console.log(product)
             $scope.productslist = product.data
-
+            $scope.starRatings = [{
+                max:5
+            }];
         })
+
+       
+   
 
     $scope.getStars = function (rating) {
         var val = parseFloat(rating);
@@ -120,3 +107,27 @@ module1.controller("productlistController", ["$scope", "productDataService", fun
         }
     }
 }])
+
+
+
+
+module1.directive('starRating', function () {
+
+    return {
+        template: '<ul class="rating">' + '  <li ng-repeat="star in stars" ng-class="star" >' + '</li>' + '</ul>',
+        scope: {
+            ratingValue: '=',
+            max: '=',
+        },
+
+        link: function (scope) {
+
+            scope.stars = [];
+            for (var i = 0; i < scope.max; i++) {
+                scope.stars.push({
+                    filled: i < scope.ratingValue
+                })
+            }
+        }
+    }
+});
