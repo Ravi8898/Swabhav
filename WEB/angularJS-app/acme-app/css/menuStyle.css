@@ -103,32 +103,54 @@ float:left;
 
 
 
-.starRating {
-
+/* .rating {
+  color: #a9a9a9;
   margin: 0;
-
   padding: 0;
 
-  color: #a9a9a9;
-
 }
-
-.starRating li {
-
-  list-style-type: none;
-
+ul.rating {
   display: inline-block;
-
-  padding: 3px;
-
+}
+.rating li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 1px;
+  text-align: center;
   font-weight: bold;
-
   cursor: pointer;
+  font-size:20px;
+}
+.rating .filled {
+  color: black;
+}
+.clear{
+margin-top:20px;
+} */
 
+.rating {
+  margin: 0;
+  padding: 0;
+}
+.rating li {
+  font-size: 21px;
+  display: inline-block;
+}
+.rating li.filled {
+  color: #000;
 }
 
-.starRatings .filled {
-
-  color: green;
-
+.average-rating-container {
+  position: relative;
+  height: 31px;
+  width: 103px;
 }
+.average-rating-container .foreground {
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+
+

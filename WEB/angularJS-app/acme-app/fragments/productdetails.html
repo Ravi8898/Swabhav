@@ -34,10 +34,10 @@
                         <tr>
                             <td>5 Star Rating</td>
                             <td>
-                                <span ng-repeat="rating in ratings">
-                                    <!-- <span ng-style="{ 'width': getStars(product.starRating) }"></span> -->
-
-                                    <div star-rating rating-value="product.starRating" max="ratings.max"></div>
+                                <!-- {{Singleproduct.starRating}}
+                                    <average-star-rating ng-model="Singleproduct.starRating" max="5"></average-star-rating> -->
+                                <span class="stars alignleft">
+                                    <span ng-style="{ 'width': getStars(Singleproduct.starRating) }"></span>
                                 </span>
                             </td>
                         </tr>

@@ -1,25 +1,5 @@
 <br>
-<style>
 
-    .rating {
-        margin: 0;
-        padding: 0;
-        color: #a9a9a9;
-    }
-
-    .rating li {
-        list-style-type: none;
-        display: inline-block;
-        padding: 3px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .rating .filled {
-        color: green;
-    }
-
-</style>
 <div class="container">
     <div class="welcomediv">&nbsp;&nbsp;&nbsp;Product List</div>
     <div class="jumbotron" id="myjmbotron">
@@ -51,11 +31,8 @@
                         <td>{{product.releaseDate}}</td>
                         <td>{{"$"+product.price}}</td>
                         <td>
-                            <span ng-repeat="rating in ratings">
-                                <!-- <span ng-style="{ 'width': getStars(product.starRating) }"></span> -->
-                                
-                                <div star-rating rating-value="product.starRating" max="ratings.max"></div>
-                            </span>
+                            <!-- {{product.starRating}} -->
+                                <average-star-rating ng-model="product.starRating" max="5"></average-star-rating>   
                         </td>
                     </tr>
                 </tbody>

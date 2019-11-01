@@ -8,22 +8,18 @@ module1.factory('productDataService', ["$http", "$routeParams", function ($http,
     }
 
     service.getSingleProduct = function (productslist) {
-        console.log(productslist)
+        // console.log(productslist)
         for (var i = 0; i < productslist.length; i++) {
-            console.log("variable:" + i)
+            // console.log("variable:" + i)
             if (productslist[i].productCode == $routeParams.productCode) {
-                console.log("variable:" + productslist[i].productCode)
+                // console.log("variable:" + productslist[i].productCode)
+
                 return productslist[i]
             }
         }
     }
     return service
 }])
-
-
-
-
-
 
 module1.config(["$routeProvider", function ($routeProvider) {
     $routeProvider
@@ -54,15 +50,14 @@ module1.controller("homeController", ["$scope", function ($scope) {
 }])
 
 module1.controller("productdetailsController", ["$scope", "productDataService", function ($scope, productDataService) {
-    // $scope.code = $routeParams.productCode
+    
     productDataService.getProduct()
         .then(function (product) {
-            console.log(product)
+            // console.log(product)
             $scope.productslist = product.data
             $scope.Singleproduct = productDataService.getSingleProduct($scope.productslist)
-            $scope.starRatings = [{
-                max:5
-            }];
+            // $scope.averageRating = $scope.Singleproduct.starRating;
+            // console.log($scope.averageRating)
 
         })
 
@@ -75,27 +70,17 @@ module1.controller("productdetailsController", ["$scope", "productDataService", 
 }])
 
 module1.controller("productlistController", ["$scope", "productDataService", function ($scope, productDataService) {
-    
+
     $scope.isVisible = true
     $scope.hideShow_image = "Hide Image"
 
     productDataService.getProduct()
         .then(function (product) {
-            console.log(product)
+            // console.log(product)
             $scope.productslist = product.data
-            $scope.starRatings = [{
-                max:5
-            }];
+
         })
 
-       
-   
-
-    $scope.getStars = function (rating) {
-        var val = parseFloat(rating);
-        var size = val / 5 * 100;
-        return size + '%';
-    }
 
     $scope.showHide = function () {
         if ($scope.isVisible) {
@@ -108,26 +93,33 @@ module1.controller("productlistController", ["$scope", "productDataService", fun
     }
 }])
 
-
-
-
-module1.directive('starRating', function () {
-
+module1.directive("averageStarRating", function () {
     return {
-        template: '<ul class="rating">' + '  <li ng-repeat="star in stars" ng-class="star" >' + '</li>' + '</ul>',
+        template: "<div class='average-rating-container'>" +
+            "  <ul class='rating'>" +
+            "    <li ng-repeat='star in stars' class='star'>" +
+            "    </li>" +
+            "  </ul>" +
+            "  <ul class='rating foreground' class='readonly' style='width:{{filledInStarsContainerWidth}}%'>" +
+            "    <li ng-repeat='star in stars' class='filled'>" +
+            "      <i class='glyphicon glyphicon-star'></i>" +
+            "    </li>" +
+            "  </ul>" +
+            "</div>",
         scope: {
-            ratingValue: '=',
-            max: '=',
+            averageRatingValue: "=ngModel",
+            max: "="
         },
-
         link: function (scope) {
+            //  scope.max = 5;
 
             scope.stars = [];
             for (var i = 0; i < scope.max; i++) {
-                scope.stars.push({
-                    filled: i < scope.ratingValue
-                })
+                scope.stars.push({});
             }
+            var starContainerMaxWidth = 100; //%
+            console.log(scope.averageRatingValue)
+            scope.filledInStarsContainerWidth = scope.averageRatingValue / scope.max * starContainerMaxWidth;
         }
-    }
+    };
 });
