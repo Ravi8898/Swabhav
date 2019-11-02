@@ -17,7 +17,6 @@ CREATE TABLE orders(
 INSERT INTO orders(orderId, orderDate, customerId)
 VALUES(201,'10/08/2019',101)
 
-
 CREATE TABLE lineItem(
 	lineItemId int NOT NULL PRIMARY KEY,
 	quantity int NOT NULL,
@@ -36,8 +35,6 @@ CREATE TABLE product(
 	FOREIGN KEY(productId)
 		REFERENCES lineItem(lineItemId)
 );
-
-DROP TABLE product
 
 INSERT INTO product(productId, productName, price)
 VALUES(301,'Book',255)

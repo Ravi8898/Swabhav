@@ -9,10 +9,16 @@ public class ConnectionTest {
 	public static void main(String[] args) {
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/test?user=root&password=root");
+			DriverManager.setLoginTimeout(1);
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/swabhav?user=root&password=root");
+
 			System.out.println(conn.getClass());
 			System.out.println("Connection Stablished Successfully...!!!");
-			
+			System.out.println(DriverManager.getLoginTimeout());
+//			System.out.println("Timeout: " + conn.getNetworkTimeout());
+//			conn.setNetworkTimeout(executor, milliseconds);
+			System.out.println("db:" + conn.getCatalog() + "\n" + "userName: " + conn.getMetaData().getUserName()
+					+ "\nPassword: ");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
