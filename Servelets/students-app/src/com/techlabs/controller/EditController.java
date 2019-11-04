@@ -11,28 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.techlabs.model.Student;
 
-/**
- * Servlet implementation class EditController
- */
 @WebServlet("/edit")
 public class EditController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	
 	public EditController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		System.out.println("Inside Edit Controller\n ");
 		int studentId = Integer.parseInt(request.getParameter("id"));
 		System.out.println(request.getParameter("id"));
@@ -44,15 +34,11 @@ public class EditController extends HttpServlet {
 		request.setAttribute("setCgpi", "" + student.getCgpi());
 		request.setAttribute("studentID", studentId);
 
-		RequestDispatcher view = request.getRequestDispatcher("edit.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("editContact.jsp");
 		view.forward(request, response);
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -63,8 +49,8 @@ public class EditController extends HttpServlet {
 
 		if ((!studentName.equals(null) && !studentName.equals(""))
 				&& (!studentCgpi.equals(null) && !studentCgpi.equals(""))) {
+			
 			System.out.println(studentName + "," + studentCgpi);
-
 			String name = request.getParameter("Name");
 			double cgpi = Double.parseDouble(request.getParameter("Cgpi"));
 
@@ -82,8 +68,8 @@ public class EditController extends HttpServlet {
 			request.setAttribute("errorLabel", errMsg);
 			request.setAttribute("studentID", studentId);
 			request.setAttribute("setName", studentName);
+			
 			request.setAttribute("setCgpi", studentCgpi);
-
 			RequestDispatcher view = request.getRequestDispatcher("edit.jsp");
 			view.forward(request, response);
 

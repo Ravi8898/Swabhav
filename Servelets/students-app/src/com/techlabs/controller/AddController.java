@@ -1,10 +1,6 @@
 package com.techlabs.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -58,6 +54,7 @@ public class AddController extends HttpServlet {
 			String errMsg="* All Fields are Mandatory...!!!";
 			request.setAttribute("errorLabel", errMsg);
 			request.setAttribute("setName", studentName);
+			
 			request.setAttribute("setCgpi", studentCgpi);
 			RequestDispatcher view=request.getRequestDispatcher("add.jsp");
 			view.forward(request, response);

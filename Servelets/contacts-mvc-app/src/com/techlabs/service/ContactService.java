@@ -1,19 +1,13 @@
 package com.techlabs.service;
 
 import java.util.List;
-
 import com.techlabs.model.Contact;
 import com.techlabs.repository.ContactRepository;
 
 public class ContactService {
 
 	private static ContactService instance;
-	
-	ContactRepository contactRepository=new ContactRepository();
-
-	Contact contact1 = new Contact("Ravi", "Maurya", 8898, "ravi@gmail.com");
-	Contact contact2 = new Contact("Nilam", "Menat", 9137, "nilam@gmail.com");
-	Contact contact3 = new Contact("Sunny", "Maurya", 9768, "sunny@gmail.com");
+	ContactRepository contactRepository = new ContactRepository();
 
 	public static ContactService getInstance() {
 		if (instance == null)
@@ -24,11 +18,6 @@ public class ContactService {
 	private ContactService() {
 		System.out.println("this is service");
 
-		contactRepository.add(contact1);
-		contactRepository.add(contact2);
-		contactRepository.add(contact3);
-		
-
 	}
 
 	public List<Contact> get() {
@@ -37,8 +26,18 @@ public class ContactService {
 
 	public void add(Contact contact) {
 		contactRepository.add(contact);
+	}
+
+	public Contact get(int contactId) {
+		return contactRepository.get(contactId);
+	}
+
+	public void edit(int contactId, Contact contact) {
+		contactRepository.edit(contactId, contact);
+	}
+
+	public void remove(int contactId) {
+		contactRepository.remove(contactId);
 		
-//		contactList.add(contact);
-//		System.out.println(contactList.size());
 	}
 }
