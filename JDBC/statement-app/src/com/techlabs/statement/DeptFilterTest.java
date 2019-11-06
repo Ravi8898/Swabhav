@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class DeptFilterTest {
+	
 	public static void main(String[] args) {
 
 		Connection conn = null;
