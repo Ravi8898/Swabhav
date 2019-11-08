@@ -3,9 +3,35 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-    <package name="main" extends="struts-default">
-    <action name="home" class="com.techlabs.action.HomeAction" method="execute"> 
-    <result name="success">/home.jsp</result>
-    </action>
-    </package>
+	<constant name="struts.action.extension" value=""></constant>
+	<package name="main" extends="struts-default">
+		<action name="home" class="com.techlabs.action.HomeAction"
+			method="execute">
+			<result name="success">/home.jsp</result>
+		</action>
+
+		<action name="greet" class="com.techlabs.action.GreetAction"
+			method="execute">
+			<result name="success">/greet.jsp</result>
+		</action>
+
+		<action name="greet.do" class="com.techlabs.action.GreetAction"
+			method="doExecute">
+			<result name="success">/greet.jsp</result>
+		</action>
+
+		<action name="wish" class="com.techlabs.action.WishAction"
+			method="execute">
+			<result name="success">/wish.jsp</result>
+			
+		</action>
+
+		<action name="wish.do" class="com.techlabs.action.WishAction"
+			method="doExecute">
+			<result name="success">/wish.jsp</result>
+			<result name="error">/wish.jsp</result>
+		</action>
+
+
+	</package>
 </struts>
