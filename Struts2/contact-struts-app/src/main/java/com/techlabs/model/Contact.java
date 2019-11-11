@@ -7,7 +7,7 @@ public class Contact  {
 	private String name;
 	private String contactNo;
 	private String email;
-	UUID uuid;
+	private UUID uuid;
 	
 	public Contact(String name, String contactNo, String email){
 		this.name=name;

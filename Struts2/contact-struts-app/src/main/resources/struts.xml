@@ -3,7 +3,20 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-    <package name="main" extends="struts-default">
-    
-    </package>
+	<package name="main" extends="struts-default">
+
+		<action name="contact"
+			class="com.techlabs.actions.ContactDisplayAction">
+			<result name="success">/contact.jsp</result>
+		</action>
+		
+		<action name="add">
+			<result>/addContact.jsp</result>
+		</action>
+
+		<action name="add.do"
+			class="com.techlabs.actions.ContactAddAction" method="addContact">
+			<result name="success">/contact</result>
+		</action>
+	</package>
 </struts>
