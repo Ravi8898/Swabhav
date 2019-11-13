@@ -12,9 +12,7 @@ public class ContactDisplayAction extends ActionSupport implements ModelDriven<C
 
 	private ContactDisplayViewModel contactDisplayViewModel;
 	private ContactService contactService=ContactService.getInstance();
-	private List<Contact> contactList=contactService.get();;
-	
-	
+	private List<Contact> contactList=contactService.get();
 	
 	@Override
 	public ContactDisplayViewModel getModel() {

@@ -1,5 +1,7 @@
 package com.techlabs.actions;
 
+import java.util.List;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.techlabs.model.Contact;
@@ -9,6 +11,9 @@ import com.techlabs.viewmodels.ContactAddViewModel;
 public class ContactAddAction extends ActionSupport implements ModelDriven<ContactAddViewModel> {
 
 	ContactAddViewModel contactAddViewModel;
+	private ContactService contactService=ContactService.getInstance();
+
+	private List<Contact> contactList=contactService.get();
 
 	@Override
 	public ContactAddViewModel getModel() {
@@ -26,7 +31,7 @@ public class ContactAddAction extends ActionSupport implements ModelDriven<Conta
 	public void validate() {
 		System.out.println("Inside validate");
 		if (contactAddViewModel.getName().trim().equals("") || contactAddViewModel.getName() == null) {
-			addFieldError("userName", "UserName required");
+			addFieldError("name", "UserName required");
 		}
 
 		if (contactAddViewModel.getEmail().trim().equals("") || contactAddViewModel.getEmail() == null) {
@@ -41,10 +46,19 @@ public class ContactAddAction extends ActionSupport implements ModelDriven<Conta
 
 	public String addContact() {
 
+		System.out.println("Inside addContact");
 		ContactService contactService = ContactService.getInstance();
 		contactService.addContact(new Contact(contactAddViewModel.getName(), contactAddViewModel.getContactNo(),
 				contactAddViewModel.getEmail()));
 		return "success";
+	}
+	
+	public List<Contact> getContactList() {
+		return contactList;
+	}
+
+	public void setContactList(List<Contact> contactList) {
+		this.contactList = contactList;
 	}
 
 }

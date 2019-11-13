@@ -13,10 +13,10 @@
 	<h1>Hello...!!!</h1>
 	<h3>This is Contact page</h3>
 
-<div right-align="true">	
+<div align="right">	
 <a href="add">Add</a>
 </div>
-	<table border="1" text-align="center">
+	<table border="1px">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -29,6 +29,7 @@
 		
 		<tbody>
 			<s:iterator value="contactList">
+			
 				<tr>
 				<td>
 				<s:property value="uuid"></s:property>
