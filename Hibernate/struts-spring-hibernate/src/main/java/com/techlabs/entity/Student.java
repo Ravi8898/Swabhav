@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Student {
 
 	private String name;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -38,7 +38,5 @@ public class Student {
 	public void setCgpi(double cgpi) {
 		this.cgpi = cgpi;
 	}
-	
-	
 
 }
